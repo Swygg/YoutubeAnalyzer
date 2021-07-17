@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YoutubeAPI.Services
 {
-    class ChannelsService
+    public class YoutubeChannelsService
     {
     }
 }
