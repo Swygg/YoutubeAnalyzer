@@ -1,15 +1,9 @@
-﻿using DAL;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using YoutubeAPI.Services;
 using YoutubeAPI.Models;
+using YoutubeAPI.Services;
 
 
 namespace IHM
@@ -36,11 +30,16 @@ namespace IHM
         private void ShowError(string message)
         {
             MessageBox.Show(message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        } 
+        }
 
         private void LoadUserPersonnalData()
         {
             folderPath_tb.Text = IHM.Properties.Settings.Default.folderPath;
+        }
+
+        private static string GetDurationReadableFormat(TimeSpan durationHardToRead)
+        {
+            return $"{durationHardToRead.Hours.ToString("00")}:{durationHardToRead.Minutes.ToString("00")}:{durationHardToRead.Seconds.ToString("00")}";
         }
         #endregion
 
@@ -63,7 +62,7 @@ namespace IHM
             var channelsLinks = GetLinks();
             var channels = new List<YoutubeChannel>();
 
-
+            var startProcess = DateTime.Now;
             var channelsService = new YoutubeChannelsService();
             foreach (var link in channelsLinks)
             {
@@ -71,7 +70,20 @@ namespace IHM
                 if (maybeChannel != null)
                     channels.Add(maybeChannel);
             }
-            ExcelManager.Save(folderPath_tb.Text, channels);
+
+            //ORDER VIDEO BY NB VIEWS
+            foreach (var channel in channels)
+            {
+                channel.Videos = channel.Videos.OrderByDescending(x => x.NbViews).ToList();
+            }
+
+
+            DAL.ExcelManager.Save(folderPath_tb.Text, channels);
+            var endProcess = DateTime.Now;
+            var time = endProcess - startProcess;
+            var successMessage = $"The datas have been saved in {folderPath_tb.Text}" + Environment.NewLine +
+                $"Work done in {GetDurationReadableFormat(time)}";
+            MessageBox.Show(successMessage, "Succss", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void changePath_btn_Click(object sender, EventArgs e)

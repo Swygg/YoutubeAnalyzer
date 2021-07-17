@@ -45,6 +45,8 @@ namespace YoutubeAPI.Helpers
         public static int GetIntFromInformation(string html, string htlmStart, string htmlEnd)
         {
             var tempo = GetInformations(html, htlmStart, htmlEnd);
+            if (tempo == null)
+                return -1;
 
             var stringWithOnlyNumber = new StringBuilder();
             foreach (var caracter in tempo)
@@ -97,19 +99,19 @@ namespace YoutubeAPI.Helpers
 
             return stringWithOnlyNumber.ToString();
         }
-    }
 
-    class MyClient : WebClient
-    {
-        public bool HeadOnly { get; set; }
-        protected override WebRequest GetWebRequest(Uri address)
+        private class MyClient : WebClient
         {
-            WebRequest req = base.GetWebRequest(address);
-            if (HeadOnly && req.Method == "GET")
+            public bool HeadOnly { get; set; }
+            protected override WebRequest GetWebRequest(Uri address)
             {
-                req.Method = "HEAD";
+                WebRequest req = base.GetWebRequest(address);
+                if (HeadOnly && req.Method == "GET")
+                {
+                    req.Method = "HEAD";
+                }
+                return req;
             }
-            return req;
         }
     }
 }

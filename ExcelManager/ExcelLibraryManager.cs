@@ -1,13 +1,26 @@
 ﻿using ExcelLibrary.SpreadSheet;
 using System;
+using System.Collections.Generic;
+using Em = ExcelManager.Interfaces;
 
 namespace ExcelManager
 {
     public static class ExcelLibraryManager
     {
-
-      
-
+        public static void Create(string path, Em.Workbook workbook)
+        {
+            Workbook wb = new Workbook();
+            foreach (var worksheet in workbook.Worksheets)
+            {
+                var ws = new Worksheet(worksheet.Name);
+                foreach (var cell in worksheet.Cells)
+                {
+                    ws.Cells[cell.X, cell.Y] = new Cell(cell.Value);
+                }
+                wb.Worksheets.Add(ws);
+            }
+            wb.Save(path+ workbook.Name+".xls");
+        }
 
 
 
@@ -15,7 +28,7 @@ namespace ExcelManager
         private static void CreateNewXlsFile()
         {
             //create new xls file
-            string file = "D:/newdoc.xls";
+            string file = "C:/newdoc.xls";
             Workbook workbook = new Workbook();
             Worksheet worksheet = new Worksheet("First Sheet");
             worksheet.Cells[0, 1] = new Cell((short)1);

@@ -26,6 +26,7 @@ namespace YoutubeAPI.Helpers
                 switch (monthInString)
                 {
                     case "jan":
+                    case "janv":
                     case "janvier":
                         monthInNumber = 1;
                         break;
@@ -49,14 +50,17 @@ namespace YoutubeAPI.Helpers
                     case "juin":
                         monthInNumber = 6;
                         break;
+                    case "juil":
                     case "juillet":
                         monthInNumber = 7;
                         break;
                     case "aou":
                     case "aout":
+                    case "août":
                         monthInNumber = 8;
                         break;
                     case "sep":
+                    case "sept":
                     case "septembre":
                         monthInNumber = 9;
                         break;
@@ -69,6 +73,7 @@ namespace YoutubeAPI.Helpers
                         monthInNumber = 11;
                         break;
                     case "dec":
+                    case "déc":
                     case "decembre":
                         monthInNumber = 12;
                         break;
