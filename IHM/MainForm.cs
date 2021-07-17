@@ -30,6 +30,7 @@ namespace IHM
         private void SimulateChannelSearch()
         {
             string channelUrl = "https://www.youtube.com/user/LesTutosdeHuito";
+            //string channelUrl = "https://www.youtube.com/c/metallica/about";
             var channelsService = new YoutubeChannelsService();
             var channel = channelsService.GetChannelFromUrl(channelUrl);
         }

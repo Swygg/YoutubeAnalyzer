@@ -97,72 +97,7 @@ namespace YoutubeAPI.Services
             var indexStartHtml = "\"dateText\":{\"simpleText\":\"";
             var indexEndHtml = "\"}";
             var dateYoutubeString = HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
-            return TranslateYoutubeDateInDateTime(dateYoutubeString);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="youtubeDate">Exemple : 5 avr. 2014</param>
-        /// <returns></returns>
-        private DateTime? TranslateYoutubeDateInDateTime(string youtubeDate)
-        {
-            try
-            {
-                var dateParts = youtubeDate.Split(' ');
-                var daysInNumber = dateParts[0];
-                var monthInString = dateParts[1].Replace(".", string.Empty);
-                var yearhInNumber = dateParts[2];
-
-                var monthInNumber = -1;
-                switch (monthInString)
-                {
-                    case "jan":
-                        monthInNumber = 1;
-                        break;
-                    case "fev":
-                        monthInNumber = 2;
-                        break;
-                    case "mar":
-                        monthInNumber = 3;
-                        break;
-                    case "avr":
-                        monthInNumber = 4;
-                        break;
-                    case "mai":
-                        monthInNumber = 5;
-                        break;
-                    case "jui":
-                        monthInNumber = 6;
-                        break;
-                    case "juil":
-                        monthInNumber = 7;
-                        break;
-                    case "aou":
-                        monthInNumber = 8;
-                        break;
-                    case "sep":
-                        monthInNumber = 9;
-                        break;
-                    case "oct":
-                        monthInNumber = 10;
-                        break;
-                    case "nov":
-                        monthInNumber = 11;
-                        break;
-                    case "dec":
-                        monthInNumber = 12;
-                        break;
-                    default:
-                        throw new Exception($"Erreur durant le mappage de la date. La valeur \"{monthInString}\" ne peut être mappée.");
-                }
-
-                return new DateTime(int.Parse(yearhInNumber), monthInNumber, int.Parse(daysInNumber));
-            }
-            catch
-            {
-                return null;
-            }
+            return DateHelper.TranslateYoutubeDateInDateTime(dateYoutubeString);
         }
     }
 }

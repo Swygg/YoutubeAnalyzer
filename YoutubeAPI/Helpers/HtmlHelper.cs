@@ -6,12 +6,27 @@ namespace YoutubeAPI.Helpers
 {
     public static class HtmlHelper
     {
+        public static bool DoesUrlExist(string url)
+        {
+            using var client = new MyClient();
+            client.HeadOnly = true;
+            try
+            {
+                client.DownloadString(url);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static string GetHtmlFromUrl(string url)
         {
             if (string.IsNullOrEmpty(url))
                 throw new Exception("Url null or empty");
 
-            using WebClient webclient = new WebClient();
+            using WebClient webclient = new();
             return webclient.DownloadString(url);
         }
 
@@ -42,6 +57,59 @@ namespace YoutubeAPI.Helpers
                 return realNbView;
             else
                 return -1;
+        }
+
+        public static string GetInformationsFromReverse(string html, string htlmStart, string htmlEnd)
+        {
+            var indexEnd = html.IndexOf(htmlEnd);
+            if (indexEnd == -1)
+                return null;
+            html = html.Substring(0, indexEnd);
+
+            var lastStartIndex = html.LastIndexOf(htlmStart);
+            if (lastStartIndex == -1)
+                return null;
+
+            var result = html.Substring(lastStartIndex + htlmStart.Length);
+            result.Replace(@"\n", Environment.NewLine);
+            return result;
+        }
+
+        public static int GetIntFromInformationFromReverse(string html, string htlmStart, string htmlEnd)
+        {
+            var tempo = GetInformationsFromReverse(html, htlmStart, htmlEnd);
+            var stringWithOnlyNumber = KeepOnlyNumbers(tempo);
+
+            if (int.TryParse(stringWithOnlyNumber, out int realNbView))
+                return realNbView;
+            else
+                return -1;
+        }
+
+        public static string KeepOnlyNumbers(string str, bool keepComa = false)
+        {
+            var stringWithOnlyNumber = new StringBuilder();
+            foreach (var caracter in str)
+            {
+                if (char.IsNumber(caracter) || (keepComa && caracter ==','))
+                    stringWithOnlyNumber.Append(caracter);
+            }
+
+            return stringWithOnlyNumber.ToString();
+        }
+    }
+
+    class MyClient : WebClient
+    {
+        public bool HeadOnly { get; set; }
+        protected override WebRequest GetWebRequest(Uri address)
+        {
+            WebRequest req = base.GetWebRequest(address);
+            if (HeadOnly && req.Method == "GET")
+            {
+                req.Method = "HEAD";
+            }
+            return req;
         }
     }
 }
