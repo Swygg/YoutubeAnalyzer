@@ -12,6 +12,7 @@ namespace YoutubeAPI.Models
         public int NbViews { get; set; }
         public int NbPositiveFeedbacks { get; set; }
         public int NbNegativeFeedbacks { get; set; }
+        public string ChannelUrl { get; set; }
 
         public YoutubeVideo()
         {
@@ -23,6 +24,7 @@ namespace YoutubeAPI.Models
             this.Description = null;
             this.NbPositiveFeedbacks = -1;
             this.NbNegativeFeedbacks = -1;
+            this.ChannelUrl = null;
         }
     }
 }

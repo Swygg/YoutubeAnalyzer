@@ -8,5 +8,6 @@ namespace YoutubeAPI.Models
 {
     public class YoutubeChannel
     {
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using YoutubeAPI.Helpers;
 using YoutubeAPI.Models;
 
@@ -34,7 +33,8 @@ namespace YoutubeAPI.Services
                 CreationDate = GetCreationDateTime(html),
                 NbPositiveFeedbacks = GetNbLike(html),
                 NbNegativeFeedbacks = GetNbDislike(html),
-                Duration = GetDuration(html)
+                Duration = GetDuration(html),
+                ChannelUrl = GetChannelUrl(html)
             };
             return video;
         }
@@ -43,42 +43,52 @@ namespace YoutubeAPI.Services
         {
             var indexStartHtml = "videoPrimaryInfoRenderer\":{\"title\":{\"runs\":[{\"text\":\"";
             var indexEndHtml = "\"}";
-            return GetInformations(html, indexStartHtml, indexEndHtml);
+            return HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
         }
 
         private string GetDescription(string html)
         {
             var indexStartHtml = "description\":{\"runs\":[{\"text\":\"";
             var indexEndHtml = "\"}";
-            return GetInformations(html, indexStartHtml, indexEndHtml);
+            return HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
+        }
+
+        private string GetChannelUrl(string html)
+        {
+            var indexStartHtml = "Person\"><link itemprop=\"url\" href=\"";
+            var indexEndHtml = "\"";
+            var maybeChannelUrl = HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
+            if (maybeChannelUrl.IndexOf("user") > -1)
+                return maybeChannelUrl;
+            return null;
         }
 
         private int GetNbViews(string html)
         {
             var indexStartHtml = "videoViewCountRenderer\":{\"viewCount\":{\"simpleText\":\"";
             var indexEndHtml = "\"}";
-            return GetIntFromInformation(html, indexStartHtml, indexEndHtml);
+            return HtmlHelper.GetIntFromInformation(html, indexStartHtml, indexEndHtml);
         }
 
         private int GetNbDislike(string html)
         {
             var indexStartHtml = "{\"iconType\":\"DISLIKE\"},\"defaultText\":{\"accessibility\":{\"accessibilityData\":{\"label\":\"";
             var indexEndHtml = "clic";
-            return GetIntFromInformation(html, indexStartHtml, indexEndHtml);
+            return HtmlHelper.GetIntFromInformation(html, indexStartHtml, indexEndHtml);
         }
 
         private int GetNbLike(string html)
         {
             var indexStartHtml = "{\"iconType\":\"LIKE\"},\"defaultText\":{\"accessibility\":{\"accessibilityData\":{\"label\":\"";
             var indexEndHtml = "clic";
-            return GetIntFromInformation(html, indexStartHtml, indexEndHtml);
+            return HtmlHelper.GetIntFromInformation(html, indexStartHtml, indexEndHtml);
         }
 
         private TimeSpan? GetDuration(string html)
         {
             var indexStartHtml = "audioQuality\":\"AUDIO_QUALITY_LOW\",\"approxDurationMs\":\"";
             var indexEndHtml = "\"";
-            var nbSeconds = GetIntFromInformation(html, indexStartHtml, indexEndHtml) / 1000;
+            var nbSeconds = HtmlHelper.GetIntFromInformation(html, indexStartHtml, indexEndHtml) / 1000;
             return new TimeSpan(0, 0, nbSeconds);
         }
 
@@ -86,37 +96,8 @@ namespace YoutubeAPI.Services
         {
             var indexStartHtml = "\"dateText\":{\"simpleText\":\"";
             var indexEndHtml = "\"}";
-            var dateYoutubeString = GetInformations(html, indexStartHtml, indexEndHtml);
+            var dateYoutubeString = HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
             return TranslateYoutubeDateInDateTime(dateYoutubeString);
-        }
-
-        private string GetInformations(string html, string htlmStart, string htmlEnd)
-        {
-            var indexStart = html.IndexOf(htlmStart);
-            if (indexStart == -1)
-                return null;
-            indexStart += htlmStart.Length;
-            html = html.Substring(indexStart);
-            var result = html.Substring(0, html.IndexOf(htmlEnd));
-            result.Replace(@"\n", Environment.NewLine);
-            return result;
-        }
-
-        private int GetIntFromInformation(string html, string htlmStart, string htmlEnd)
-        {
-            var tempo = GetInformations(html, htlmStart, htmlEnd);
-
-            var stringWithOnlyNumber = new StringBuilder();
-            foreach (var caracter in tempo)
-            {
-                if (char.IsNumber(caracter))
-                    stringWithOnlyNumber.Append(caracter);
-            }
-
-            if (int.TryParse(stringWithOnlyNumber.ToString(), out int realNbView))
-                return realNbView;
-            else
-                return -1;
         }
 
         /// <summary>

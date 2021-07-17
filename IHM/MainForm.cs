@@ -17,15 +17,21 @@ namespace IHM
         public MainForm()
         {
             InitializeComponent();
-            SimulateVideoSearch();
+            SimulateChannelSearch();
         }
 
-        public void SimulateVideoSearch()
+        private void SimulateVideoSearch()
         {
-            //string videoUrl = "https://www.youtube.com/watch?v=7I_OMwCJN5E";
-            string videoUrl = "https://www.youtube.com/watch?v=9Z7STusENH0";
+            string videoUrl = "https://www.youtube.com/watch?v=7I_OMwCJN5E";
             var videosService = new YoutubeVideosService();
             var video = videosService.GetVideoFromUrl(videoUrl);
+        }
+
+        private void SimulateChannelSearch()
+        {
+            string channelUrl = "https://www.youtube.com/user/LesTutosdeHuito";
+            var channelsService = new YoutubeChannelsService();
+            var channel = channelsService.GetChannelFromUrl(channelUrl);
         }
 
     }
