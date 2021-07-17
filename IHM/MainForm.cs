@@ -35,5 +35,11 @@ namespace IHM
             var channel = channelsService.GetChannelFromUrl(channelUrl);
         }
 
+        private void btn_Analyze_Click(object sender, EventArgs e)
+        {
+            var channelsService = new YoutubeChannelsService();
+            var channels = channelsService.GetChannelFromUrl(urls_tb.Text);
+            MessageBox.Show("Work is done. Now we need to put informations in excel file");
+        }
     }
 }
