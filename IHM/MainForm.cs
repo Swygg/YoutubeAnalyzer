@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YoutubeAPI.Services;
+using YoutubeAPI.Models;
 
 
 namespace IHM
@@ -17,9 +19,32 @@ namespace IHM
         public MainForm()
         {
             InitializeComponent();
-            SimulateChannelSearch();
         }
 
+        private void btn_Analyze_Click(object sender, EventArgs e)
+        {
+            var channelsLinks = GetLinks();
+            var channels = new List<YoutubeChannel>();
+
+
+            var channelsService = new YoutubeChannelsService();
+            foreach (var link in channelsLinks)
+            {
+                var maybeChannel = channelsService.GetChannelFromUrl(link);
+                if (maybeChannel != null)
+                    channels.Add(maybeChannel);
+            }
+            ExcelManager.Save("",channels);
+        }
+
+        private List<string> GetLinks()
+        {
+            return urls_tb.Text.Split(Environment.NewLine).ToList();
+        }
+
+
+
+        #region FOR MANUAL TESTS ONLY
         private void SimulateVideoSearch()
         {
             string videoUrl = "https://www.youtube.com/watch?v=7I_OMwCJN5E";
@@ -33,13 +58,7 @@ namespace IHM
             //string channelUrl = "https://www.youtube.com/c/metallica/about";
             var channelsService = new YoutubeChannelsService();
             var channel = channelsService.GetChannelFromUrl(channelUrl);
-        }
-
-        private void btn_Analyze_Click(object sender, EventArgs e)
-        {
-            var channelsService = new YoutubeChannelsService();
-            var channels = channelsService.GetChannelFromUrl(urls_tb.Text);
-            MessageBox.Show("Work is done. Now we need to put informations in excel file");
-        }
+        } 
+        #endregion
     }
 }
