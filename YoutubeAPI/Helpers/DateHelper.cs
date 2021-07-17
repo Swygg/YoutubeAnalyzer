@@ -30,6 +30,7 @@ namespace YoutubeAPI.Helpers
                         monthInNumber = 1;
                         break;
                     case "fev":
+                    case "févr":
                     case "fevrier":
                         monthInNumber = 2;
                         break;

@@ -9,7 +9,7 @@ namespace YoutubeAPI.Services
     {
         public YoutubeChannel GetChannelFromUrl(string url)
         {
-            var aboutPageUrl = GetAboutYoutubePage(url);
+            var aboutPageUrl = GetYoutubeAboutAccountUrl(url);
 
             string html = string.Empty;
             try
@@ -21,10 +21,11 @@ namespace YoutubeAPI.Services
                 throw;
             }
             var channel = ScrapHtml(html);
+            channel.Videos = GetVideos(url);
             return channel;
         }
 
-        private string GetAboutYoutubePage(string url)
+        private string GetYoutubeAboutAccountUrl(string url)
         {
             const string ABOUT = @"/about";
             if (url.Length > ABOUT.Length &&
@@ -62,6 +63,7 @@ namespace YoutubeAPI.Services
             var indexEndHtml = "\"}";
             return HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
         }
+
         private string GetDescription(string html)
         {
             var indexStartHtml = "{\"channelAboutFullMetadataRenderer\":{\"description\":{\"simpleText\":\"";
@@ -125,6 +127,67 @@ namespace YoutubeAPI.Services
             var indexEndHtml = "\"}";
             var stringDate = HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
             return DateHelper.TranslateYoutubeDateInDateTime(stringDate);
+        }
+
+        private List<YoutubeVideo> GetVideos(string url)
+        {
+            var links = GetVideoLinks(url);
+            var videos = new List<YoutubeVideo>();
+            var youtubeVideosService = new YoutubeVideosService();
+            foreach (var link in links)
+            {
+                videos.Add(youtubeVideosService.GetVideoFromUrl(link));
+            }
+            return videos;
+        }
+
+        private List<string> GetVideoLinks(string url)
+        {
+            url = GetYoutubeVideoAccountUrl(url);
+            if (url == null)
+                return null;
+            string html = string.Empty;
+            try
+            {
+                html = HtmlHelper.GetHtmlFromUrl(url);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            var links = new List<string>();
+
+            string tempo = null;
+            do
+            {
+                var startId = "gridVideoRenderer\":{\"videoId\":\"";
+                var endId = "\"";
+
+                tempo = HtmlHelper.GetInformations(html, startId, endId);
+                if (tempo != null)
+                {
+                    links.Add("https://www.youtube.com/watch?v=" + tempo);
+                    html = html.Substring(html.IndexOf(startId) + startId.Length);
+                }
+            } while (tempo != null);
+
+            return links;
+        }
+
+        private string GetYoutubeVideoAccountUrl(string url)
+        {
+            const string VIDEO = @"/videos";
+            if (url.Length > VIDEO.Length &&
+                url.Substring(url.Length - VIDEO.Length) == VIDEO)
+                return url;
+
+            var maybePage = url + VIDEO;
+            if (HtmlHelper.DoesUrlExist(maybePage))
+            {
+                return maybePage;
+            }
+            return null;
         }
     }
 }
