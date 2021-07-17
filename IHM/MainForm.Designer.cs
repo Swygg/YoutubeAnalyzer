@@ -33,17 +33,18 @@ namespace IHM
             this.urls_tb = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.folderPath_tb = new System.Windows.Forms.TextBox();
+            this.changePath_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Analyze
             // 
             this.btn_Analyze.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Analyze.Location = new System.Drawing.Point(477, 136);
+            this.btn_Analyze.Location = new System.Drawing.Point(440, 136);
             this.btn_Analyze.Name = "btn_Analyze";
-            this.btn_Analyze.Size = new System.Drawing.Size(75, 23);
-            this.btn_Analyze.TabIndex = 3;
-            this.btn_Analyze.Text = "Analyse !";
+            this.btn_Analyze.Size = new System.Drawing.Size(112, 23);
+            this.btn_Analyze.TabIndex = 4;
+            this.btn_Analyze.Text = "Analyze !";
             this.btn_Analyze.UseVisualStyleBackColor = true;
             this.btn_Analyze.Click += new System.EventHandler(this.btn_Analyze_Click);
             // 
@@ -78,24 +79,36 @@ namespace IHM
             this.label2.TabIndex = 3;
             this.label2.Text = "Folder path :";
             // 
-            // textBox1
+            // folderPath_tb
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.folderPath_tb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(158, 96);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(394, 23);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "C:/YoutubeAnalyzerTest/";
+            this.folderPath_tb.Location = new System.Drawing.Point(158, 96);
+            this.folderPath_tb.Name = "folderPath_tb";
+            this.folderPath_tb.Size = new System.Drawing.Size(276, 23);
+            this.folderPath_tb.TabIndex = 2;
+            this.folderPath_tb.Text = "C:/YoutubeAnalyzerTest/";
+            // 
+            // changePath_btn
+            // 
+            this.changePath_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.changePath_btn.Location = new System.Drawing.Point(440, 96);
+            this.changePath_btn.Name = "changePath_btn";
+            this.changePath_btn.Size = new System.Drawing.Size(112, 23);
+            this.changePath_btn.TabIndex = 3;
+            this.changePath_btn.Text = "Change path";
+            this.changePath_btn.UseVisualStyleBackColor = true;
+            this.changePath_btn.Click += new System.EventHandler(this.changePath_btn_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 171);
+            this.Controls.Add(this.changePath_btn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.folderPath_tb);
             this.Controls.Add(this.urls_tb);
             this.Controls.Add(this.btn_Analyze);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -114,7 +127,8 @@ namespace IHM
         private System.Windows.Forms.TextBox urls_tb;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox folderPath_tb;
+        private System.Windows.Forms.Button changePath_btn;
     }
 }
 
