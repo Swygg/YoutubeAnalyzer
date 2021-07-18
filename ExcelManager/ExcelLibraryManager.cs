@@ -7,6 +7,19 @@ namespace ExcelManager
 {
     public static class ExcelLibraryManager
     {
+        /*
+        ===IMPORTANT===
+        It seems's ExcelLibrary is not updated anymore.
+        We don't have access to cell style (bold, italic, underline, alignement, color...)
+        ===============
+
+        Sources 
+        https://stackoverflow.com/questions/151005/how-do-i-create-an-excel-xls-and-xlsx-file-in-c-sharp-without-installing-mic
+        https://code.google.com/archive/p/excellibrary/
+
+        ExcelLibrary can't use Cell colors :
+        https://stackoverflow.com/questions/3117227/how-can-i-change-cell-style-in-an-excel-file-with-excellibrary
+        */
         public static void Create(string path, Em.Workbook workbook)
         {
             Workbook wb = new Workbook();
@@ -19,7 +32,7 @@ namespace ExcelManager
                 }
                 wb.Worksheets.Add(ws);
             }
-            wb.Save(path+ workbook.Name+".xls");
+            wb.Save(path + workbook.Name + ".xls");
         }
 
 
@@ -42,10 +55,6 @@ namespace ExcelManager
             workbook.Worksheets.Add(worksheet);
             workbook.Save(file);
 
-
-
-
-
             // traverse rows by Index for (int rowIndex = sheet.Cells.FirstRowIndex; rowIndex <= sheet.Cells.LastRowIndex; rowIndex++) { Row row = sheet.Cells.GetRow(rowIndex); for (int colIndex = row.FirstColIndex; colIndex <= row.LastColIndex; colIndex++) { Cell cell = row.GetCell(colIndex); } } 
         }
 
@@ -59,6 +68,18 @@ namespace ExcelManager
 
             // traverse cells
 
+        }
+
+        //Only for test
+        public static void Test()
+        {
+            Workbook workbook = new Workbook();
+            Worksheet worksheet = new Worksheet("worksheet name");
+
+            worksheet.Cells[3, 3] = new Cell("Hey");
+
+            workbook.Worksheets.Add(worksheet);
+            workbook.Save("C:/Test.xls");
         }
     }
 }
