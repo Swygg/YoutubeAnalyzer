@@ -150,7 +150,7 @@ namespace DAL
 
         private static IExcelService GetExcelService()
         {
-            return new ExcelLibraryService();
+            return new NPOIService();
         }
     }
 }
