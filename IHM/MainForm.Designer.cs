@@ -107,9 +107,9 @@ namespace IHM
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 147);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(382, 15);
+            this.label3.Size = new System.Drawing.Size(387, 15);
             this.label3.TabIndex = 5;
-            this.label3.Text = "For now, we only work with channel. Videos and playlists are incoming.";
+            this.label3.Text = "For now, we only work with channels. Videos and playlists are incoming.";
             // 
             // MainForm
             // 
