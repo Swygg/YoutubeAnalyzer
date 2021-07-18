@@ -1,6 +1,8 @@
 ﻿using ExcelServices.Interfaces;
+using ExcelServices.Models;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -27,7 +29,10 @@ namespace ExcelServices
                     }
                     CreateCell(row, cell);
                 }
+                SetColumnsSize(ws, worksheet.ColumnsSize);
             }
+
+           
 
             using (var stream = new FileStream(path + workbook.Name + ".xls", FileMode.Create, FileAccess.Write))
             {
@@ -35,19 +40,17 @@ namespace ExcelServices
             }
         }
 
-        //Thanks to : https://dev.to/mtmb/generate-excel-with-npoi-in-c-904
         private void CreateCell(IRow currentRow, Cell cell)
         {
+            //Base : https://dev.to/mtmb/generate-excel-with-npoi-in-c-904
             ICell npoiCell = currentRow.CreateCell(cell.Y);
             npoiCell.SetCellValue(cell.Value);
 
-            //
             if(cell.CellStyle != null)
             {
                 IFont font = _workbook.CreateFont();
                 font.IsBold = cell.CellStyle.IsBold;
                 font.IsItalic = cell.CellStyle.IsItalic;
-                //font.Underline = cell.CellStyle.IsUnderline;
                 ICellStyle cellStyle = _workbook.CreateCellStyle();
                 cellStyle.SetFont(font);
                 switch (cell.CellStyle.HorizontalAlignment)
@@ -102,10 +105,21 @@ namespace ExcelServices
                     default:
                         break;
                 }
-
                 npoiCell.CellStyle = cellStyle;
             }
-            
+        }
+
+        private void SetColumnsSize(ISheet sheet, List<ColumnSize> columnsSize)
+        {
+            if (columnsSize == null)
+                return;
+            foreach (var columnSize in columnsSize)
+            {
+                if (columnSize.Size == ColumnSize.AUTOSIZE)
+                    sheet.AutoSizeColumn(columnSize.Index);
+                else
+                    sheet.SetColumnWidth(columnSize.Index, columnSize.Size * 256);
+            }
         }
     }
 }

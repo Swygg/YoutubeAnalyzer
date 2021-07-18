@@ -1,10 +1,11 @@
 ﻿using ExcelLibrary.SpreadSheet;
 using System;
-using Em = ExcelServices.Interfaces;
+using ExcServInter = ExcelServices.Interfaces;
+using ExcServMod = ExcelServices.Models;
 
 namespace ExcelServices
 {
-    public class ExcelLibraryService : Em.IExcelService
+    public class ExcelLibraryService : ExcServInter.IExcelService
     {
         /*
         ===IMPORTANT===
@@ -19,7 +20,7 @@ namespace ExcelServices
         ExcelLibrary can't use Cell colors :
         https://stackoverflow.com/questions/3117227/how-can-i-change-cell-style-in-an-excel-file-with-excellibrary
         */
-        public void Create(string path, Em.Workbook workbook)
+        public void Create(string path, ExcServMod.Workbook workbook)
         {
             Workbook wb = new Workbook();
             foreach (var worksheet in workbook.Worksheets)

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using YoutubeAPI.Models;
+﻿using ExcelServices;
 using ExcelServices.Interfaces;
-using Ex = ExcelServices;
+using ExcelServices.Models;
 using System;
-using ExcelServices;
+using System.Collections.Generic;
+using YoutubeAPI.Models;
 
 namespace DAL
 {
@@ -62,38 +62,43 @@ namespace DAL
             worksheet.Name = "Presentation";
 
             var cells = new List<Cell>();
-
+            var titleStyle = GetTitleStyle();
             var rowIndex = 0;
 
             //NAME
-            cells.Add(new Cell(rowIndex, 0, "Name"));
+            cells.Add(new Cell(rowIndex, 0, "Name", titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.Name));
 
             //NB SUBSCRIBER
-            cells.Add(new Cell(++rowIndex, 0, "Nb subscribers"));
+            cells.Add(new Cell(++rowIndex, 0, "Nb subscribers", titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.NbSubscribers));
 
             //NB VIEWS
-            cells.Add(new Cell(++rowIndex, 0, "Nb views"));
+            cells.Add(new Cell(++rowIndex, 0, "Nb views", titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.NbViews));
 
             //SUBSCRIPTION DATE
-            cells.Add(new Cell(++rowIndex, 0, "Subscription date"));
+            cells.Add(new Cell(++rowIndex, 0, "Subscription date", titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.SubscriptionDate?.ToString("dd-MM-yyyy")));
 
             //FACEBOOK LINK
-            cells.Add(new Cell(++rowIndex, 0, "Facebook link"));
+            cells.Add(new Cell(++rowIndex, 0, "Facebook link", titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.FacebookLink));
 
             //TWITTER LINK
-            cells.Add(new Cell(++rowIndex, 0, "Twitter link"));
+            cells.Add(new Cell(++rowIndex, 0, "Twitter link", titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.TwitterLink));
 
             //DESCRIPTION
-            cells.Add(new Cell(++rowIndex, 0, "Description"));
+            cells.Add(new Cell(++rowIndex, 0, "Description", titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.Description));
 
             worksheet.Cells = cells;
+            worksheet.ColumnsSize = new List<ColumnSize>()
+            {
+                new ColumnSize(){Index = 0, Size = ColumnSize.AUTOSIZE},
+                new ColumnSize(){Index = 1, Size = 50 },
+            };
             return worksheet;
         }
 
@@ -115,39 +120,47 @@ namespace DAL
             const int URL = 6;
             const int DESCRIPTION = 7;
 
-            var cellStyle = new CellStyle()
+            var titleStyle = GetTitleStyle();
+
+            var newStyle = new CellStyle()
             {
-                IsBold = true,
-                IsItalic = true,
-                IsUnderline = true,
-                HorizontalAlignment = EHorizontalAlignment.Center,
-                VerticalAlignment = EVerticalAlignment.Center
+                HorizontalAlignment = EHorizontalAlignment.Center
             };
 
             // COLUMNS NAME
-            cells.Add(new Cell(rowIndex, NAME, "Name", cellStyle));
-            cells.Add(new Cell(rowIndex, DURATION, "Duration", cellStyle));
-            cells.Add(new Cell(rowIndex, CREATIONDATE, "Creation date", cellStyle));
-            cells.Add(new Cell(rowIndex, NBVIEW, "Nb views", cellStyle));
-            cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, "Nb positive feedback", cellStyle));
-            cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, "Nb negative feedback", cellStyle));
-            cells.Add(new Cell(rowIndex, URL, "Url", cellStyle));
-            cells.Add(new Cell(rowIndex, DESCRIPTION, "Description", cellStyle));
+            cells.Add(new Cell(rowIndex, NAME, "Name", titleStyle));
+            cells.Add(new Cell(rowIndex, DURATION, "Duration", titleStyle));
+            cells.Add(new Cell(rowIndex, CREATIONDATE, "Creation date", titleStyle));
+            cells.Add(new Cell(rowIndex, NBVIEW, "Nb views", titleStyle));
+            cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, "Nb positive feedback", titleStyle));
+            cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, "Nb negative feedback", titleStyle));
+            cells.Add(new Cell(rowIndex, URL, "Url", titleStyle));
+            cells.Add(new Cell(rowIndex, DESCRIPTION, "Description", titleStyle));
 
             foreach (var video in videos)
             {
                 rowIndex++;
                 cells.Add(new Cell(rowIndex, NAME, video.Name));
-                cells.Add(new Cell(rowIndex, DURATION, GetDurationReadableFormat(video.Duration)));
-                cells.Add(new Cell(rowIndex, CREATIONDATE, video.CreationDate?.ToString("dd-MM-yyyy")));
-                cells.Add(new Cell(rowIndex, NBVIEW, video.NbViews));
-                cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, video.NbPositiveFeedbacks));
-                cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, video.NbNegativeFeedbacks));
+                cells.Add(new Cell(rowIndex, DURATION, GetDurationReadableFormat(video.Duration), newStyle));
+                cells.Add(new Cell(rowIndex, CREATIONDATE, video.CreationDate?.ToString("dd-MM-yyyy"), newStyle));
+                cells.Add(new Cell(rowIndex, NBVIEW, video.NbViews, newStyle));
+                cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, video.NbPositiveFeedbacks, newStyle));
+                cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, video.NbNegativeFeedbacks, newStyle));
                 cells.Add(new Cell(rowIndex, URL, video.Url));
                 cells.Add(new Cell(rowIndex, DESCRIPTION, video.Description));
             }
 
             worksheet.Cells = cells;
+
+            worksheet.ColumnsSize = new List<ColumnSize>()
+            {
+                new ColumnSize(){Index = NAME, Size = ColumnSize.AUTOSIZE},
+                new ColumnSize(){Index = DURATION, Size = ColumnSize.AUTOSIZE},
+                new ColumnSize(){Index = CREATIONDATE, Size = ColumnSize.AUTOSIZE},
+                new ColumnSize(){Index = NBVIEW, Size = ColumnSize.AUTOSIZE},
+                new ColumnSize(){Index = NBPOSITIVEFEEBACK, Size = ColumnSize.AUTOSIZE},
+                new ColumnSize(){Index = NBNEGATIVEFEEBACK, Size = ColumnSize.AUTOSIZE},
+            };
             return worksheet;
         }
 
@@ -161,6 +174,18 @@ namespace DAL
         private static IExcelService GetExcelService()
         {
             return new NPOIService();
+        }
+
+        private static CellStyle GetTitleStyle()
+        {
+            return new CellStyle()
+            {
+                IsBold = true,
+                IsItalic = true,
+                IsUnderline = true,
+                HorizontalAlignment = EHorizontalAlignment.Center,
+                VerticalAlignment = EVerticalAlignment.Center
+            };
         }
     }
 }

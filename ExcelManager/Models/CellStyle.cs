@@ -1,4 +1,4 @@
-﻿namespace ExcelServices.Interfaces
+﻿namespace ExcelServices.Models
 {
     public class CellStyle
     {

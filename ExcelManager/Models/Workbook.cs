@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ExcelServices.Interfaces
+namespace ExcelServices.Models
 {
     public class Workbook
     {

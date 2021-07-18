@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace ExcelServices.Interfaces
+namespace ExcelServices.Models
 {
     public class Worksheet
     {
         public string Name { get; set; }
         public List<Cell> Cells { get; set; }
+        public List<ColumnSize> ColumnsSize { get; set; }
 
         public Worksheet()
         {

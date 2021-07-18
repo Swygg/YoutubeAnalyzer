@@ -1,4 +1,6 @@
-﻿namespace ExcelServices.Interfaces
+﻿using ExcelServices.Models;
+
+namespace ExcelServices.Interfaces
 {
     public interface IExcelService
     {
