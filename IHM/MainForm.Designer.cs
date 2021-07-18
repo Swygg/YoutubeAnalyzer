@@ -35,6 +35,7 @@ namespace IHM
             this.label2 = new System.Windows.Forms.Label();
             this.folderPath_tb = new System.Windows.Forms.TextBox();
             this.changePath_btn = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_Analyze
@@ -100,11 +101,22 @@ namespace IHM
             this.changePath_btn.UseVisualStyleBackColor = true;
             this.changePath_btn.Click += new System.EventHandler(this.changePath_btn_Click);
             // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 147);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(382, 15);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "For now, we only work with channel. Videos and playlists are incoming.";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 171);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.changePath_btn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -129,6 +141,7 @@ namespace IHM
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox folderPath_tb;
         private System.Windows.Forms.Button changePath_btn;
+        private System.Windows.Forms.Label label3;
     }
 }
 

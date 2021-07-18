@@ -59,26 +59,38 @@ namespace IHM
                 return;
             }
 
-            var channelsLinks = GetLinks();
-            var channels = new List<YoutubeChannel>();
+
+
 
             var startProcess = DateTime.Now;
-            var channelsService = new YoutubeChannelsService();
-            foreach (var link in channelsLinks)
+            var youtubeResponses = new List<YoutubeResponse>();
+            var links = GetLinks();
+            var youtubeSearchService = new YoutubeSearchService();
+
+
+
+
+            foreach (var link in links)
             {
-                var maybeChannel = channelsService.GetChannelFromUrl(link);
-                if (maybeChannel != null)
-                    channels.Add(maybeChannel);
+                var response = youtubeSearchService.GetAnswerFromLink(link);
+                if (response != null)
+                {
+                    youtubeResponses.Add(response);
+                }
             }
 
             //ORDER VIDEO BY NB VIEWS
-            foreach (var channel in channels)
+            foreach (var youtubeResponse in youtubeResponses)
             {
-                channel.Videos = channel.Videos.OrderByDescending(x => x.NbViews).ToList();
+                if (youtubeResponse.Playlist != null)
+                {
+                    youtubeResponse.Channel.Videos = youtubeResponse.Channel.Videos.OrderByDescending(x => x.NbViews).ToList();
+                }
             }
 
 
-            DAL.ExcelManager.Save(folderPath_tb.Text, channels);
+
+            DAL.ExcelManager.Save(folderPath_tb.Text, youtubeResponses);
             var endProcess = DateTime.Now;
             var time = endProcess - startProcess;
             var successMessage = $"The datas have been saved in {folderPath_tb.Text}" + Environment.NewLine +
@@ -109,7 +121,14 @@ namespace IHM
         {
             string videoUrl = "https://www.youtube.com/watch?v=7I_OMwCJN5E";
             var videosService = new YoutubeVideosService();
-            var video = videosService.GetVideoFromUrl(videoUrl);
+            var maybeVideo = videosService.GetVideoFromUrl(videoUrl);
+        }
+
+        private void SimulatePlaylistSearch()
+        {
+            string url = "https://www.youtube.com/watch?v=RcLxoPz1dDY&list=PLmntgUDCubzjE-DaiCrVXv9LfsJU61aJ7";
+            var playlistService = new YoutubePlaylistsService();
+            var maybePlaylist = playlistService.GetYoutubePlaylist(url);
         }
 
         private void SimulateChannelSearch()
@@ -117,8 +136,10 @@ namespace IHM
             string channelUrl = "https://www.youtube.com/user/LesTutosdeHuito";
             //string channelUrl = "https://www.youtube.com/c/metallica/about";
             var channelsService = new YoutubeChannelsService();
-            var channel = channelsService.GetChannelFromUrl(channelUrl);
+            var maybeChannel = channelsService.GetChannelFromUrl(channelUrl);
         }
         #endregion
+
+       
     }
 }

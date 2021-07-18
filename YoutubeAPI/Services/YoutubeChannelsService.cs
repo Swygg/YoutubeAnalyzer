@@ -32,6 +32,7 @@ namespace YoutubeAPI.Services
                 url.Substring(url.Length - ABOUT.Length) == ABOUT)
                 return url;
 
+            url = SanityzeChannelUrl(url);
             var maybeAboutPage = url + ABOUT;
             if (HtmlHelper.DoesUrlExist(maybeAboutPage))
             {
@@ -39,6 +40,28 @@ namespace YoutubeAPI.Services
             }
             return null;
         }
+
+        private string SanityzeChannelUrl(string url)
+        {
+            url = CutUrlEnd(url, "/featured");   
+            url = CutUrlEnd(url, "/videos");
+            url = CutUrlEnd(url, "/playlists");
+            url = CutUrlEnd(url, "/community");
+            url = CutUrlEnd(url, "/channels");
+            return url;
+        }
+
+        private string CutUrlEnd(string url, string stringToRemove)
+        {
+            if (url.Length > stringToRemove.Length &&
+                 url.Substring(url.Length - stringToRemove.Length) == stringToRemove)
+            {
+                url = url.Substring(0, url.Length - stringToRemove.Length);
+            }
+            return url;
+        }
+
+
 
         private YoutubeChannel ScrapHtml(string html)
         {

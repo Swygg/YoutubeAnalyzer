@@ -8,19 +8,48 @@ namespace DAL
 {
     public static class ExcelManager
     {
-        public static void Save(string pathFile, List<YoutubeChannel> youtubeChannels)
+        public static void Save(string pathFile, List<YoutubeResponse> youtubeResponse)
         {
-            for (int i = 0; i < youtubeChannels.Count; i++)
+            for (int i = 0; i < youtubeResponse.Count; i++)
             {
-                var workbook = new Workbook();
-                workbook.Name = $"Channel-{i + 1}";
+                var indexChannels = 1;
+                var indexPlaylists = 1;
+                var indexVideos = 1;
+                if(youtubeResponse[i].Channel != null)
+                {
+                    SaveChannel(pathFile, youtubeResponse[i].Channel, indexChannels);
 
-
-                workbook.Worksheets.Add(GetPresentationWorksheet(youtubeChannels[i]));
-                workbook.Worksheets.Add(GetVideosWorksheet(youtubeChannels[i].Videos));
-
-                Ex.ExcelLibraryManager.Create(pathFile, workbook);
+                }
+                else if(youtubeResponse[i].Playlist != null)
+                {
+                    SavePlaylist(pathFile, youtubeResponse[i].Playlist, indexPlaylists);
+                }
+                else if (youtubeResponse[i].Video != null)
+                {
+                    SaveVideo(pathFile, youtubeResponse[i].Video, indexVideos);
+                }
             }
+        }
+
+        private static void SaveChannel(string pathFile, YoutubeChannel channel, int index)
+        {
+            var workbook = new Workbook();
+            workbook.Name = $"Channel-{index}";
+
+
+            workbook.Worksheets.Add(GetPresentationWorksheet(channel));
+            workbook.Worksheets.Add(GetVideosWorksheet(channel.Videos));
+
+            Ex.ExcelLibraryManager.Create(pathFile, workbook);
+        }
+
+        private static void SavePlaylist(string pathFile, YoutubePlaylist playlist, int index)
+        {
+
+        }
+
+        private static void SaveVideo(string pathFile, YoutubeVideo video, int index)
+        {
 
         }
 
