@@ -8,12 +8,14 @@ namespace ExcelServices
 {
     public class NPOIService : IExcelService
     {
+        private HSSFWorkbook _workbook;
         public void Create(string path, Workbook workbook)
         {
-            HSSFWorkbook wb = new HSSFWorkbook();
+
+            _workbook = new HSSFWorkbook();
             foreach (var worksheet in workbook.Worksheets)
             {
-                var ws = wb.CreateSheet(worksheet.Name);
+                var ws = _workbook.CreateSheet(worksheet.Name);
                 int actualRowIndex = -1;
                 IRow row = null;
                 foreach (var cell in worksheet.Cells.OrderBy(c=> c.X))
@@ -23,23 +25,87 @@ namespace ExcelServices
                         row = ws.CreateRow(cell.X);
                         actualRowIndex = cell.X;
                     }
-                    CreateCell(row, cell.Y, cell.Value, null);
+                    CreateCell(row, cell);
                 }
             }
 
             using (var stream = new FileStream(path + workbook.Name + ".xls", FileMode.Create, FileAccess.Write))
             {
-                wb.Write(stream);
+                _workbook.Write(stream);
             }
         }
 
         //Thanks to : https://dev.to/mtmb/generate-excel-with-npoi-in-c-904
-        private void CreateCell(IRow currentRow, int cellIndex, string value, HSSFCellStyle style)
+        private void CreateCell(IRow currentRow, Cell cell)
         {
-            ICell Cell = currentRow.CreateCell(cellIndex);
-            Cell.SetCellValue(value);
-            if (style != null)
-                Cell.CellStyle = style;
+            ICell npoiCell = currentRow.CreateCell(cell.Y);
+            npoiCell.SetCellValue(cell.Value);
+
+            //
+            if(cell.CellStyle != null)
+            {
+                IFont font = _workbook.CreateFont();
+                font.IsBold = cell.CellStyle.IsBold;
+                font.IsItalic = cell.CellStyle.IsItalic;
+                //font.Underline = cell.CellStyle.IsUnderline;
+                ICellStyle cellStyle = _workbook.CreateCellStyle();
+                cellStyle.SetFont(font);
+                switch (cell.CellStyle.HorizontalAlignment)
+                {
+                    case EHorizontalAlignment.General:
+                        cellStyle.Alignment = HorizontalAlignment.General;
+                        break;
+                    case EHorizontalAlignment.Left:
+                        cellStyle.Alignment = HorizontalAlignment.Left;
+                        break;
+                    case EHorizontalAlignment.Center:
+                        cellStyle.Alignment = HorizontalAlignment.Center;
+                        break;
+                    case EHorizontalAlignment.Right:
+                        cellStyle.Alignment = HorizontalAlignment.Right;
+                        break;
+                    case EHorizontalAlignment.Fill:
+                        cellStyle.Alignment = HorizontalAlignment.Fill;
+                        break;
+                    case EHorizontalAlignment.Justify:
+                        cellStyle.Alignment = HorizontalAlignment.Justify;
+                        break;
+                    case EHorizontalAlignment.CenterSelection:
+                        cellStyle.Alignment = HorizontalAlignment.CenterSelection;
+                        break;
+                    case EHorizontalAlignment.Distributed:
+                        cellStyle.Alignment = HorizontalAlignment.Distributed;
+                        break;
+                    default:
+                        break;
+                }
+                switch (cell.CellStyle.VerticalAlignment)
+                {
+                    case EVerticalAlignment.None:
+                        cellStyle.VerticalAlignment = VerticalAlignment.None;
+                        break;
+                    case EVerticalAlignment.Top:
+                        cellStyle.VerticalAlignment = VerticalAlignment.Top;
+                        break;
+                    case EVerticalAlignment.Center:
+                        cellStyle.VerticalAlignment = VerticalAlignment.Center;
+                        break;
+                    case EVerticalAlignment.Bottom:
+                        cellStyle.VerticalAlignment = VerticalAlignment.Bottom;
+                        break;
+                    case EVerticalAlignment.Justify:
+                        cellStyle.VerticalAlignment = VerticalAlignment.Justify;
+                        break;
+                    case EVerticalAlignment.Distributed:
+                        cellStyle.VerticalAlignment = VerticalAlignment.Distributed;
+                        break;
+                    default:
+                        break;
+                }
+
+                npoiCell.CellStyle = cellStyle;
+            }
+            
         }
     }
 }

@@ -34,9 +34,10 @@ namespace DAL
 
         private static void SaveChannel(string pathFile, YoutubeChannel channel, int index)
         {
-            var workbook = new Workbook();
-            workbook.Name = $"Channel-{index}";
-
+            var workbook = new Workbook
+            {
+                Name = $"Channel-{index}"
+            };
 
             workbook.Worksheets.Add(GetPresentationWorksheet(channel));
             workbook.Worksheets.Add(GetVideosWorksheet(channel.Videos));
@@ -114,15 +115,24 @@ namespace DAL
             const int URL = 6;
             const int DESCRIPTION = 7;
 
+            var cellStyle = new CellStyle()
+            {
+                IsBold = true,
+                IsItalic = true,
+                IsUnderline = true,
+                HorizontalAlignment = EHorizontalAlignment.Center,
+                VerticalAlignment = EVerticalAlignment.Center
+            };
+
             // COLUMNS NAME
-            cells.Add(new Cell(rowIndex, NAME, "Name"));
-            cells.Add(new Cell(rowIndex, DURATION, "Duration"));
-            cells.Add(new Cell(rowIndex, CREATIONDATE, "Creation date"));
-            cells.Add(new Cell(rowIndex, NBVIEW, "Nb views"));
-            cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, "Nb positive feedback"));
-            cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, "Nb negative feedback"));
-            cells.Add(new Cell(rowIndex, URL, "Url"));
-            cells.Add(new Cell(rowIndex, DESCRIPTION, "Description"));
+            cells.Add(new Cell(rowIndex, NAME, "Name", cellStyle));
+            cells.Add(new Cell(rowIndex, DURATION, "Duration", cellStyle));
+            cells.Add(new Cell(rowIndex, CREATIONDATE, "Creation date", cellStyle));
+            cells.Add(new Cell(rowIndex, NBVIEW, "Nb views", cellStyle));
+            cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, "Nb positive feedback", cellStyle));
+            cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, "Nb negative feedback", cellStyle));
+            cells.Add(new Cell(rowIndex, URL, "Url", cellStyle));
+            cells.Add(new Cell(rowIndex, DESCRIPTION, "Description", cellStyle));
 
             foreach (var video in videos)
             {
