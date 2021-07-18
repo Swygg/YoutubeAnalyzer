@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using YoutubeAPI.Models;
-using ExcelManager.Interfaces;
-using Ex = ExcelManager;
+using ExcelServices.Interfaces;
+using Ex = ExcelServices;
 using System;
+using ExcelServices;
 
 namespace DAL
 {
@@ -40,7 +41,8 @@ namespace DAL
             workbook.Worksheets.Add(GetPresentationWorksheet(channel));
             workbook.Worksheets.Add(GetVideosWorksheet(channel.Videos));
 
-            Ex.ExcelLibraryManager.Create(pathFile, workbook);
+            IExcelService ExcelService = GetExcelService();
+            ExcelService.Create(pathFile, workbook);
         }
 
         private static void SavePlaylist(string pathFile, YoutubePlaylist playlist, int index)
@@ -144,6 +146,11 @@ namespace DAL
             if (durationHardToRead == null)
                 return null;
             return $"{durationHardToRead?.Hours.ToString("00")}:{durationHardToRead?.Minutes.ToString("00")}:{durationHardToRead?.Seconds.ToString("00")}";
+        }
+
+        private static IExcelService GetExcelService()
+        {
+            return new ExcelLibraryService();
         }
     }
 }

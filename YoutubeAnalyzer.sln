@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IHM", "IHM\IHM.csproj", "{0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YoutubeAPI", "YoutubeAPI\YoutubeAPI.csproj", "{1DA20FED-2D41-440D-B912-653F3D3E2844}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{60A79A5B-8100-4CE0-B68E-C28ADB7178AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{60A79A5B-8100-4CE0-B68E-C28ADB7178AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelManager", "ExcelManager\ExcelManager.csproj", "{1253BC12-8952-475C-9224-BB75D2CF6370}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelServices", "ExcelManager\ExcelServices.csproj", "{1253BC12-8952-475C-9224-BB75D2CF6370}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

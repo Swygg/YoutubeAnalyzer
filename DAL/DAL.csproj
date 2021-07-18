@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExcelManager\ExcelManager.csproj" />
+    <ProjectReference Include="..\ExcelManager\ExcelServices.csproj" />
     <ProjectReference Include="..\YoutubeAPI\YoutubeAPI.csproj" />
   </ItemGroup>
 

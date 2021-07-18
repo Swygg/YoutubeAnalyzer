@@ -1,11 +1,10 @@
 ﻿using ExcelLibrary.SpreadSheet;
 using System;
-using System.Collections.Generic;
-using Em = ExcelManager.Interfaces;
+using Em = ExcelServices.Interfaces;
 
-namespace ExcelManager
+namespace ExcelServices
 {
-    public static class ExcelLibraryManager
+    public class ExcelLibraryService : Em.IExcelService
     {
         /*
         ===IMPORTANT===
@@ -20,7 +19,7 @@ namespace ExcelManager
         ExcelLibrary can't use Cell colors :
         https://stackoverflow.com/questions/3117227/how-can-i-change-cell-style-in-an-excel-file-with-excellibrary
         */
-        public static void Create(string path, Em.Workbook workbook)
+        public void Create(string path, Em.Workbook workbook)
         {
             Workbook wb = new Workbook();
             foreach (var worksheet in workbook.Worksheets)
@@ -35,10 +34,8 @@ namespace ExcelManager
             wb.Save(path + workbook.Name + ".xls");
         }
 
-
-
         //Only for test
-        private static void CreateNewXlsFile()
+        private void CreateNewXlsFile()
         {
             //create new xls file
             string file = "C:/newdoc.xls";
@@ -59,7 +56,7 @@ namespace ExcelManager
         }
 
         //Only for test
-        private static void OpenXlsFile()
+        private void OpenXlsFile()
         {
             // open xls file
             string file = "C:\newdoc.xls";
@@ -71,7 +68,7 @@ namespace ExcelManager
         }
 
         //Only for test
-        public static void Test()
+        public void Test()
         {
             Workbook workbook = new Workbook();
             Worksheet worksheet = new Worksheet("worksheet name");

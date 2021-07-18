@@ -1,4 +1,4 @@
-﻿namespace ExcelManager.Interfaces
+﻿namespace ExcelServices.Interfaces
 {
     public class Cell
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ExcelManager.Interfaces
+namespace ExcelServices.Interfaces
 {
     public class Worksheet
     {
