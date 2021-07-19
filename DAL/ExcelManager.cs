@@ -1,4 +1,5 @@
-﻿using ExcelServices;
+﻿using DAL.Models;
+using ExcelServices;
 using ExcelServices.Interfaces;
 using ExcelServices.Models;
 using System;
@@ -7,10 +8,14 @@ using YoutubeAPI.Models;
 
 namespace DAL
 {
-    public static class ExcelManager
+    public class ExcelManager
     {
-        public static void Save(string pathFile, List<YoutubeResponse> youtubeResponse)
+        private static Options _options;
+
+        public static void Save(string pathFile, List<YoutubeResponse> youtubeResponse, Options options = null)
         {
+            _options = options;
+
             for (int i = 0; i < youtubeResponse.Count; i++)
             {
                 var indexChannels = 1;
@@ -79,7 +84,7 @@ namespace DAL
 
             //SUBSCRIPTION DATE
             cells.Add(new Cell(++rowIndex, 0, "Subscription date", titleStyle));
-            cells.Add(new Cell(rowIndex, 1, youtubeChannel.SubscriptionDate?.ToString("dd-MM-yyyy")));
+            cells.Add(new Cell(rowIndex, 1, youtubeChannel.SubscriptionDate?.ToString(GetDateFormat())));
 
             //FACEBOOK LINK
             cells.Add(new Cell(++rowIndex, 0, "Facebook link", titleStyle));
@@ -142,7 +147,7 @@ namespace DAL
                 rowIndex++;
                 cells.Add(new Cell(rowIndex, NAME, video.Name));
                 cells.Add(new Cell(rowIndex, DURATION, GetDurationReadableFormat(video.Duration), newStyle));
-                cells.Add(new Cell(rowIndex, CREATIONDATE, video.CreationDate?.ToString("dd-MM-yyyy"), newStyle));
+                cells.Add(new Cell(rowIndex, CREATIONDATE, video.CreationDate?.ToString(GetDateFormat()), newStyle));
                 cells.Add(new Cell(rowIndex, NBVIEW, video.NbViews, newStyle));
                 cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, video.NbPositiveFeedbacks, newStyle));
                 cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, video.NbNegativeFeedbacks, newStyle));
@@ -186,6 +191,11 @@ namespace DAL
                 HorizontalAlignment = EHorizontalAlignment.Center,
                 VerticalAlignment = EVerticalAlignment.Center
             };
+        }
+
+        public static string GetDateFormat()
+        {
+            return _options?.DateFormat ?? "dd-MM-yyyy";
         }
     }
 }

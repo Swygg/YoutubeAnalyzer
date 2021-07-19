@@ -34,5 +34,17 @@ namespace IHM.Properties {
                 this["folderPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int dateFormatIndex {
+            get {
+                return ((int)(this["dateFormatIndex"]));
+            }
+            set {
+                this["dateFormatIndex"] = value;
+            }
+        }
     }
 }

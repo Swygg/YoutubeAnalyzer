@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using YoutubeAPI.Models;
 using YoutubeAPI.Services;
+using DAL.Models;
 
 
 namespace IHM
@@ -14,7 +15,7 @@ namespace IHM
         public MainForm()
         {
             InitializeComponent();
-            this.LoadUserPersonnalData();
+            this.LoadUserPersonnalDatas();
             this.FormClosing += MainForm_FormClosing;
         }
         #endregion
@@ -32,14 +33,27 @@ namespace IHM
             MessageBox.Show(message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void LoadUserPersonnalData()
-        {
-            folderPath_tb.Text = IHM.Properties.Settings.Default.folderPath;
-        }
-
         private static string GetDurationReadableFormat(TimeSpan durationHardToRead)
         {
             return $"{durationHardToRead.Hours.ToString("00")}:{durationHardToRead.Minutes.ToString("00")}:{durationHardToRead.Seconds.ToString("00")}";
+        }
+
+        private string GetDateFormat()
+        {
+            return cb_DateFormat.SelectedItem.ToString();
+        }
+
+        private void LoadUserPersonnalDatas()
+        {
+            folderPath_tb.Text = IHM.Properties.Settings.Default.folderPath;
+            cb_DateFormat.SelectedIndex = IHM.Properties.Settings.Default.dateFormatIndex;
+        }
+
+        private void SaveUserPersonnalDatas()
+        {
+            IHM.Properties.Settings.Default.folderPath = folderPath_tb.Text;
+            IHM.Properties.Settings.Default.dateFormatIndex = cb_DateFormat.SelectedIndex;
+            IHM.Properties.Settings.Default.Save();
         }
         #endregion
 
@@ -88,9 +102,12 @@ namespace IHM
                 }
             }
 
+            Options options = new Options()
+            {
+                DateFormat = GetDateFormat()
+            };
 
-
-            DAL.ExcelManager.Save(folderPath_tb.Text, youtubeResponses);
+            DAL.ExcelManager.Save(folderPath_tb.Text, youtubeResponses, options);
             var endProcess = DateTime.Now;
             var time = endProcess - startProcess;
             var successMessage = $"The datas have been saved in {folderPath_tb.Text}" + Environment.NewLine +
@@ -109,8 +126,7 @@ namespace IHM
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            IHM.Properties.Settings.Default.folderPath = folderPath_tb.Text;
-            IHM.Properties.Settings.Default.Save();
+            SaveUserPersonnalDatas();
         }
         #endregion
 
