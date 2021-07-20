@@ -25,7 +25,7 @@ namespace IHM
         #region PRIVATES METHODES
         private List<string> GetLinks()
         {
-            return urls_tb.Text.Split(Environment.NewLine).ToList();
+            return tb_urls.Text.Split(Environment.NewLine).ToList();
         }
 
         private void ShowError(string message)
@@ -45,13 +45,13 @@ namespace IHM
 
         private void LoadUserPersonnalDatas()
         {
-            folderPath_tb.Text = IHM.Properties.Settings.Default.folderPath;
+            tb_folderPath.Text = IHM.Properties.Settings.Default.folderPath;
             cb_DateFormat.SelectedIndex = IHM.Properties.Settings.Default.dateFormatIndex;
         }
 
         private void SaveUserPersonnalDatas()
         {
-            IHM.Properties.Settings.Default.folderPath = folderPath_tb.Text;
+            IHM.Properties.Settings.Default.folderPath = tb_folderPath.Text;
             IHM.Properties.Settings.Default.dateFormatIndex = cb_DateFormat.SelectedIndex;
             IHM.Properties.Settings.Default.Save();
         }
@@ -62,12 +62,12 @@ namespace IHM
         #region EVENTS
         private void btn_Analyze_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(urls_tb.Text))
+            if (string.IsNullOrEmpty(tb_urls.Text))
             {
                 this.ShowError("You must give at least one url");
                 return;
             }
-            if (string.IsNullOrEmpty(folderPath_tb.Text))
+            if (string.IsNullOrEmpty(tb_folderPath.Text))
             {
                 this.ShowError("You must give a folder path");
                 return;
@@ -107,10 +107,10 @@ namespace IHM
                 DateFormat = GetDateFormat()
             };
 
-            DAL.ExcelManager.Save(folderPath_tb.Text, youtubeResponses, options);
+            DAL.ExcelManager.Save(tb_folderPath.Text, youtubeResponses, options);
             var endProcess = DateTime.Now;
             var time = endProcess - startProcess;
-            var successMessage = $"The datas have been saved in {folderPath_tb.Text}" + Environment.NewLine +
+            var successMessage = $"The datas have been saved in {tb_folderPath.Text}" + Environment.NewLine +
                 $"Work done in {GetDurationReadableFormat(time)}";
             MessageBox.Show(successMessage, "Succss", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -120,7 +120,7 @@ namespace IHM
             var folderBrowserDialog = new FolderBrowserDialog();
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                folderPath_tb.Text = folderBrowserDialog.SelectedPath;
+                tb_folderPath.Text = folderBrowserDialog.SelectedPath;
             }
         }
 

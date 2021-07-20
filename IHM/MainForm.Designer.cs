@@ -30,11 +30,11 @@ namespace IHM
         private void InitializeComponent()
         {
             this.btn_Analyze = new System.Windows.Forms.Button();
-            this.urls_tb = new System.Windows.Forms.TextBox();
+            this.tb_urls = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.folderPath_tb = new System.Windows.Forms.TextBox();
-            this.changePath_btn = new System.Windows.Forms.Button();
+            this.tb_folderPath = new System.Windows.Forms.TextBox();
+            this.btn_changePath = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cb_DateFormat = new System.Windows.Forms.ComboBox();
@@ -51,17 +51,17 @@ namespace IHM
             this.btn_Analyze.UseVisualStyleBackColor = true;
             this.btn_Analyze.Click += new System.EventHandler(this.btn_Analyze_Click);
             // 
-            // urls_tb
+            // tb_urls
             // 
-            this.urls_tb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tb_urls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.urls_tb.Location = new System.Drawing.Point(158, 6);
-            this.urls_tb.Multiline = true;
-            this.urls_tb.Name = "urls_tb";
-            this.urls_tb.Size = new System.Drawing.Size(394, 102);
-            this.urls_tb.TabIndex = 1;
-            this.urls_tb.Text = "https://www.youtube.com/user/LesTutosdeHuito";
+            this.tb_urls.Location = new System.Drawing.Point(158, 6);
+            this.tb_urls.Multiline = true;
+            this.tb_urls.Name = "tb_urls";
+            this.tb_urls.Size = new System.Drawing.Size(394, 102);
+            this.tb_urls.TabIndex = 1;
+            this.tb_urls.Text = "https://www.youtube.com/user/LesTutosdeHuito";
             // 
             // label1
             // 
@@ -82,26 +82,26 @@ namespace IHM
             this.label2.TabIndex = 3;
             this.label2.Text = "Folder path :";
             // 
-            // folderPath_tb
+            // tb_folderPath
             // 
-            this.folderPath_tb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.tb_folderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.folderPath_tb.Location = new System.Drawing.Point(158, 114);
-            this.folderPath_tb.Name = "folderPath_tb";
-            this.folderPath_tb.Size = new System.Drawing.Size(276, 23);
-            this.folderPath_tb.TabIndex = 2;
-            this.folderPath_tb.Text = "C:/YoutubeAnalyzerTest/";
+            this.tb_folderPath.Location = new System.Drawing.Point(158, 114);
+            this.tb_folderPath.Name = "tb_folderPath";
+            this.tb_folderPath.Size = new System.Drawing.Size(276, 23);
+            this.tb_folderPath.TabIndex = 2;
+            this.tb_folderPath.Text = "C:/YoutubeAnalyzerTest/";
             // 
-            // changePath_btn
+            // btn_changePath
             // 
-            this.changePath_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.changePath_btn.Location = new System.Drawing.Point(440, 114);
-            this.changePath_btn.Name = "changePath_btn";
-            this.changePath_btn.Size = new System.Drawing.Size(112, 23);
-            this.changePath_btn.TabIndex = 3;
-            this.changePath_btn.Text = "Change path";
-            this.changePath_btn.UseVisualStyleBackColor = true;
-            this.changePath_btn.Click += new System.EventHandler(this.changePath_btn_Click);
+            this.btn_changePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_changePath.Location = new System.Drawing.Point(440, 114);
+            this.btn_changePath.Name = "btn_changePath";
+            this.btn_changePath.Size = new System.Drawing.Size(112, 23);
+            this.btn_changePath.TabIndex = 3;
+            this.btn_changePath.Text = "Change path";
+            this.btn_changePath.UseVisualStyleBackColor = true;
+            this.btn_changePath.Click += new System.EventHandler(this.changePath_btn_Click);
             // 
             // label3
             // 
@@ -148,11 +148,11 @@ namespace IHM
             this.Controls.Add(this.cb_DateFormat);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.changePath_btn);
+            this.Controls.Add(this.btn_changePath);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.folderPath_tb);
-            this.Controls.Add(this.urls_tb);
+            this.Controls.Add(this.tb_folderPath);
+            this.Controls.Add(this.tb_urls);
             this.Controls.Add(this.btn_Analyze);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -167,11 +167,11 @@ namespace IHM
         #endregion
 
         private System.Windows.Forms.Button btn_Analyze;
-        private System.Windows.Forms.TextBox urls_tb;
+        private System.Windows.Forms.TextBox tb_urls;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox folderPath_tb;
-        private System.Windows.Forms.Button changePath_btn;
+        private System.Windows.Forms.TextBox tb_folderPath;
+        private System.Windows.Forms.Button btn_changePath;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cb_DateFormat;
