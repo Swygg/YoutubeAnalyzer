@@ -22,6 +22,7 @@ namespace YoutubeAPI.Services
             }
             var channel = ScrapHtml(html);
             channel.Videos = GetVideos(url);
+            channel.Playlists = GetPlayList(url);
             return channel;
         }
 
@@ -43,7 +44,7 @@ namespace YoutubeAPI.Services
 
         private string SanityzeChannelUrl(string url)
         {
-            url = CutUrlEnd(url, "/featured");   
+            url = CutUrlEnd(url, "/featured");
             url = CutUrlEnd(url, "/videos");
             url = CutUrlEnd(url, "/playlists");
             url = CutUrlEnd(url, "/community");
@@ -214,6 +215,75 @@ namespace YoutubeAPI.Services
                 return url;
 
             var maybePage = url + VIDEO;
+            if (HtmlHelper.DoesUrlExist(maybePage))
+            {
+                return maybePage;
+            }
+            return null;
+        }
+
+        private List<YoutubePlaylist> GetPlayList(string url)
+        {
+            var links = GetPlayListLinks(url);
+            var playlists = new List<YoutubePlaylist>();
+            var youtubePlaylistService = new YoutubePlaylistsService();
+            foreach (var link in links)
+            {
+                playlists.Add(youtubePlaylistService.GetYoutubePlaylist(link));
+            }
+            return playlists;
+        }
+
+        private List<string> GetPlayListLinks(string url)
+        {
+            url = GetYoutubePlayListAccountUrl(url);
+            if (url == null)
+                return null;
+            string html = string.Empty;
+            try
+            {
+                html = HtmlHelper.GetHtmlFromUrl(url);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            var links = new List<string>();
+            var middleIndex = -1;
+            do
+            {
+                var middle = "\\u0026list=";
+                var start = "url\":\"";
+                var stop = "\"";
+
+                middleIndex = html.IndexOf(middle);
+
+                if (middleIndex > -1)
+                {
+                    var startIndex = html.Substring(0, middleIndex).LastIndexOf(start) + start.Length;
+                    var stopIndex = html.Substring(middleIndex).IndexOf(stop);
+                    var partUrl = html.Substring(startIndex, (middleIndex - startIndex) + stopIndex).Replace("\\u0026","&");
+                    var newUrl = $"https://www.youtube.com{partUrl}";
+                    if (!links.Contains(newUrl))
+                    {
+                        links.Add(newUrl);
+                    }
+                    html = html.Substring(startIndex + partUrl.Length);
+                }
+            } while (middleIndex>-1);
+
+            return links;
+        }
+
+        private string GetYoutubePlayListAccountUrl(string url)
+        {
+            const string PLAYLIST = @"/playlists";
+            if (url.Length > PLAYLIST.Length &&
+                url.Substring(url.Length - PLAYLIST.Length) == PLAYLIST)
+                return url;
+
+            var maybePage = url + PLAYLIST;
             if (HtmlHelper.DoesUrlExist(maybePage))
             {
                 return maybePage;

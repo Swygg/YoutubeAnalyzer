@@ -21,12 +21,12 @@ namespace DAL
                 var indexChannels = 1;
                 var indexPlaylists = 1;
                 var indexVideos = 1;
-                if(youtubeResponse[i].Channel != null)
+                if (youtubeResponse[i].Channel != null)
                 {
                     SaveChannel(pathFile, youtubeResponse[i].Channel, indexChannels);
 
                 }
-                else if(youtubeResponse[i].Playlist != null)
+                else if (youtubeResponse[i].Playlist != null)
                 {
                     SavePlaylist(pathFile, youtubeResponse[i].Playlist, indexPlaylists);
                 }
@@ -46,6 +46,11 @@ namespace DAL
 
             workbook.Worksheets.Add(GetPresentationWorksheet(channel));
             workbook.Worksheets.Add(GetVideosWorksheet(channel.Videos));
+            workbook.Worksheets.Add(GetPlaylistsWorksheet(channel.Playlists));
+            for (int indexPlaylist = 0; indexPlaylist < channel.Playlists.Count; indexPlaylist++)
+            {
+                workbook.Worksheets.Add(GetVideosWorksheet(channel.Playlists[indexPlaylist].Videos, $"Playlist {indexPlaylist + 1}"));
+            }
 
             IExcelService ExcelService = GetExcelService();
             ExcelService.Create(pathFile, workbook);
@@ -111,10 +116,61 @@ namespace DAL
             return worksheet;
         }
 
-        private static Worksheet GetVideosWorksheet(List<YoutubeVideo> videos)
+        private static Worksheet GetPlaylistsWorksheet(List<YoutubePlaylist> playlists)
+        {
+            var worksheet = new Worksheet
+            {
+                Name = "PlayLists"
+            };
+
+            var cells = new List<Cell>();
+
+            var rowIndex = 0;
+
+            const int NAME = 0;
+            const int NBVIDEOS = 1;
+            const int PLAYLISTINDEX = 2;
+            const int URL = 3;
+
+
+            var titleStyle = GetTitleStyle();
+
+            var newStyle = new CellStyle()
+            {
+                HorizontalAlignment = EHorizontalAlignment.Center
+            };
+
+            // COLUMNS NAME
+            cells.Add(new Cell(rowIndex, NAME, "Name", titleStyle));
+            cells.Add(new Cell(rowIndex, NBVIDEOS, "Nb videos", titleStyle));
+            cells.Add(new Cell(rowIndex, PLAYLISTINDEX, "Playlist index", titleStyle));
+            cells.Add(new Cell(rowIndex, URL, "Url", titleStyle));
+
+            int indexPlaylist = 1;
+            foreach (var playlist in playlists)
+            {
+                rowIndex++;
+                cells.Add(new Cell(rowIndex, NAME, playlist.Name));
+                cells.Add(new Cell(rowIndex, NBVIDEOS, playlist.Videos.Count));
+                cells.Add(new Cell(rowIndex, PLAYLISTINDEX, indexPlaylist++));
+                cells.Add(new Cell(rowIndex, URL, playlist.Url));
+            }
+
+            worksheet.Cells = cells;
+
+            worksheet.ColumnsSize = new List<ColumnSize>()
+            {
+                new ColumnSize(){Index = NAME, Size = ColumnSize.AUTOSIZE},
+                new ColumnSize(){Index = NBVIDEOS, Size = ColumnSize.AUTOSIZE},
+                new ColumnSize(){Index = PLAYLISTINDEX, Size = ColumnSize.AUTOSIZE},
+            };
+            return worksheet;
+        }
+
+        private static Worksheet GetVideosWorksheet(List<YoutubeVideo> videos, string title = "Videos")
         {
             var worksheet = new Worksheet();
-            worksheet.Name = "Videos";
+            worksheet.Name = title;
 
             var cells = new List<Cell>();
 
