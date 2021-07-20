@@ -58,12 +58,29 @@ namespace DAL
 
         private static void SavePlaylist(string pathFile, YoutubePlaylist playlist, int index)
         {
+            var workbook = new Workbook
+            {
+                Name = $"Playlist-{index}"
+            };
 
+            workbook.Worksheets.Add(GetPlaylistsWorksheet(new List<YoutubePlaylist>() { playlist }));
+            workbook.Worksheets.Add(GetVideosWorksheet(playlist.Videos, $"Playlist 1"));
+
+            IExcelService ExcelService = GetExcelService();
+            ExcelService.Create(pathFile, workbook);
         }
 
         private static void SaveVideo(string pathFile, YoutubeVideo video, int index)
         {
+            var workbook = new Workbook
+            {
+                Name = $"Video-{index}"
+            };
 
+            workbook.Worksheets.Add(GetVideosWorksheet(new List<YoutubeVideo>() { video }, $"Video"));
+
+            IExcelService ExcelService = GetExcelService();
+            ExcelService.Create(pathFile, workbook);
         }
 
         private static Worksheet GetPresentationWorksheet(YoutubeChannel youtubeChannel)

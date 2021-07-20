@@ -96,10 +96,18 @@ namespace IHM
             //ORDER VIDEO BY NB VIEWS
             foreach (var youtubeResponse in youtubeResponses)
             {
-                if (youtubeResponse.Playlist != null)
+                if (youtubeResponse.Channel != null)
                 {
                     youtubeResponse.Channel.Videos = youtubeResponse.Channel.Videos.OrderByDescending(x => x.NbViews).ToList();
+                    foreach (var playlist in youtubeResponse.Channel.Playlists)
+                    {
+                        playlist.Videos = playlist.Videos.OrderByDescending(x => x.NbViews).ToList();
+                    }
                 }
+                if(youtubeResponse.Playlist!=null)
+                {
+                    youtubeResponse.Playlist.Videos = youtubeResponse.Playlist.Videos.OrderByDescending(x => x.NbViews).ToList();
+                }                
             }
 
             Options options = new Options()
