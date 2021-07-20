@@ -86,6 +86,10 @@ namespace DAL
             cells.Add(new Cell(++rowIndex, 0, "Subscription date", titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.SubscriptionDate?.ToString(GetDateFormat())));
 
+            //TRUE URL
+            cells.Add(new Cell(++rowIndex, 0, "True url", titleStyle));
+            cells.Add(new Cell(rowIndex, 1, youtubeChannel.TrueUrl));
+
             //FACEBOOK LINK
             cells.Add(new Cell(++rowIndex, 0, "Facebook link", titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.FacebookLink));

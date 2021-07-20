@@ -61,8 +61,6 @@ namespace YoutubeAPI.Services
             return url;
         }
 
-
-
         private YoutubeChannel ScrapHtml(string html)
         {
             var youtubeChannel = new YoutubeChannel()
@@ -74,12 +72,14 @@ namespace YoutubeAPI.Services
                 FacebookLink = GetFacebookLink(html),
                 TwitterLink = GetTwitterLink(html),
                 SubscriptionDate = GetSubscriptionDate(html),
+                TrueUrl = GetTrueUrl(html),
                 Playlists = new List<YoutubePlaylist>(),
                 Videos = new List<YoutubeVideo>()
 
             };
             return youtubeChannel;
         }
+
         private string GetName(string html)
         {
             var indexStartHtml = "bypassBusinessEmailCaptcha\":false,\"title\":{\"simpleText\":\"";
@@ -150,6 +150,14 @@ namespace YoutubeAPI.Services
             var indexEndHtml = "\"}";
             var stringDate = HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
             return DateHelper.TranslateYoutubeDateInDateTime(stringDate);
+        }
+
+        private string GetTrueUrl(string html)
+        {
+            var indexStartHtml = "canonicalBaseUrl\":\"";
+            var indexEndHtml = "\"}";
+            var urlPart = HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
+            return urlPart == null ? null : $"https://www.youtube.com/user/{urlPart}";
         }
 
         private List<YoutubeVideo> GetVideos(string url)

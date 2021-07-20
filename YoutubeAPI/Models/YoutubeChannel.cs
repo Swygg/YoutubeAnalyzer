@@ -14,5 +14,6 @@ namespace YoutubeAPI.Models
         public List<YoutubeVideo> Videos { get; set; }
         public string FacebookLink { get; set; }
         public string TwitterLink { get; set; }
+        public string TrueUrl { get; set; }
     }
 }
