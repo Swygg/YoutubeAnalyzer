@@ -38,12 +38,14 @@ namespace IHM
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cb_DateFormat = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cb_durationFormat = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btn_Analyze
             // 
             this.btn_Analyze.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Analyze.Location = new System.Drawing.Point(440, 188);
+            this.btn_Analyze.Location = new System.Drawing.Point(414, 245);
             this.btn_Analyze.Name = "btn_Analyze";
             this.btn_Analyze.Size = new System.Drawing.Size(112, 23);
             this.btn_Analyze.TabIndex = 99;
@@ -59,7 +61,7 @@ namespace IHM
             this.tb_urls.Location = new System.Drawing.Point(158, 6);
             this.tb_urls.Multiline = true;
             this.tb_urls.Name = "tb_urls";
-            this.tb_urls.Size = new System.Drawing.Size(394, 102);
+            this.tb_urls.Size = new System.Drawing.Size(368, 116);
             this.tb_urls.TabIndex = 1;
             this.tb_urls.Text = "https://www.youtube.com/user/LesTutosdeHuito";
             // 
@@ -76,7 +78,7 @@ namespace IHM
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 117);
+            this.label2.Location = new System.Drawing.Point(12, 131);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 15);
             this.label2.TabIndex = 3;
@@ -86,16 +88,16 @@ namespace IHM
             // 
             this.tb_folderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_folderPath.Location = new System.Drawing.Point(158, 114);
+            this.tb_folderPath.Location = new System.Drawing.Point(158, 128);
             this.tb_folderPath.Name = "tb_folderPath";
-            this.tb_folderPath.Size = new System.Drawing.Size(276, 23);
+            this.tb_folderPath.Size = new System.Drawing.Size(250, 23);
             this.tb_folderPath.TabIndex = 2;
             this.tb_folderPath.Text = "C:/YoutubeAnalyzerTest/";
             // 
             // btn_changePath
             // 
             this.btn_changePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_changePath.Location = new System.Drawing.Point(440, 114);
+            this.btn_changePath.Location = new System.Drawing.Point(414, 128);
             this.btn_changePath.Name = "btn_changePath";
             this.btn_changePath.Size = new System.Drawing.Size(112, 23);
             this.btn_changePath.TabIndex = 3;
@@ -107,7 +109,7 @@ namespace IHM
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 199);
+            this.label3.Location = new System.Drawing.Point(12, 256);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(387, 15);
             this.label3.TabIndex = 5;
@@ -117,7 +119,7 @@ namespace IHM
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 146);
+            this.label4.Location = new System.Drawing.Point(12, 160);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 15);
             this.label4.TabIndex = 6;
@@ -136,16 +138,43 @@ namespace IHM
             "MM-dd-yy",
             "yyyy-MM-dd",
             "yy-MM-dd"});
-            this.cb_DateFormat.Location = new System.Drawing.Point(158, 138);
+            this.cb_DateFormat.Location = new System.Drawing.Point(158, 152);
             this.cb_DateFormat.Name = "cb_DateFormat";
-            this.cb_DateFormat.Size = new System.Drawing.Size(394, 23);
+            this.cb_DateFormat.Size = new System.Drawing.Size(368, 23);
             this.cb_DateFormat.TabIndex = 100;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 189);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(98, 15);
+            this.label5.TabIndex = 101;
+            this.label5.Text = "Duration format :";
+            // 
+            // cb_durationFormat
+            // 
+            this.cb_durationFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cb_durationFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_durationFormat.FormattingEnabled = true;
+            this.cb_durationFormat.Items.AddRange(new object[] {
+            "01:02:03",
+            "01-02-03",
+            "01h02m03s",
+            "01H02M03S"});
+            this.cb_durationFormat.Location = new System.Drawing.Point(158, 181);
+            this.cb_durationFormat.Name = "cb_durationFormat";
+            this.cb_durationFormat.Size = new System.Drawing.Size(368, 23);
+            this.cb_durationFormat.TabIndex = 100;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 223);
+            this.ClientSize = new System.Drawing.Size(538, 280);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.cb_durationFormat);
             this.Controls.Add(this.cb_DateFormat);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -176,6 +205,8 @@ namespace IHM
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cb_DateFormat;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cb_durationFormat;
     }
 }
 

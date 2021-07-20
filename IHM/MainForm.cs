@@ -43,16 +43,23 @@ namespace IHM
             return cb_DateFormat.SelectedItem.ToString();
         }
 
+        private EDurationFormat GetDurationFormat()
+        {
+            return (EDurationFormat)cb_durationFormat.SelectedIndex;
+        }
+
         private void LoadUserPersonnalDatas()
         {
             tb_folderPath.Text = IHM.Properties.Settings.Default.folderPath;
             cb_DateFormat.SelectedIndex = IHM.Properties.Settings.Default.dateFormatIndex;
+            cb_durationFormat.SelectedIndex = IHM.Properties.Settings.Default.durationFormatIndex;
         }
 
         private void SaveUserPersonnalDatas()
         {
             IHM.Properties.Settings.Default.folderPath = tb_folderPath.Text;
             IHM.Properties.Settings.Default.dateFormatIndex = cb_DateFormat.SelectedIndex;
+            IHM.Properties.Settings.Default.durationFormatIndex = cb_durationFormat.SelectedIndex;
             IHM.Properties.Settings.Default.Save();
         }
         #endregion
@@ -112,7 +119,8 @@ namespace IHM
 
             Options options = new Options()
             {
-                DateFormat = GetDateFormat()
+                DateFormat = GetDateFormat(),
+                DurationFormat = GetDurationFormat()
             };
 
             DAL.ExcelManager.Save(tb_folderPath.Text, youtubeResponses, options);

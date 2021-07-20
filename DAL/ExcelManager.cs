@@ -223,7 +223,7 @@ namespace DAL
             {
                 rowIndex++;
                 cells.Add(new Cell(rowIndex, NAME, video.Name));
-                cells.Add(new Cell(rowIndex, DURATION, GetDurationReadableFormat(video.Duration), newStyle));
+                cells.Add(new Cell(rowIndex, DURATION, GetDateFormat(video.Duration), newStyle));
                 cells.Add(new Cell(rowIndex, CREATIONDATE, video.CreationDate?.ToString(GetDateFormat()), newStyle));
                 cells.Add(new Cell(rowIndex, NBVIEW, video.NbViews, newStyle));
                 cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, video.NbPositiveFeedbacks, newStyle));
@@ -246,13 +246,6 @@ namespace DAL
             return worksheet;
         }
 
-        private static string GetDurationReadableFormat(TimeSpan? durationHardToRead)
-        {
-            if (durationHardToRead == null)
-                return null;
-            return $"{durationHardToRead?.Hours.ToString("00")}:{durationHardToRead?.Minutes.ToString("00")}:{durationHardToRead?.Seconds.ToString("00")}";
-        }
-
         private static IExcelService GetExcelService()
         {
             return new NPOIService();
@@ -273,6 +266,27 @@ namespace DAL
         public static string GetDateFormat()
         {
             return _options?.DateFormat ?? "dd-MM-yyyy";
+        }
+
+        public static string GetDateFormat(TimeSpan? time)
+        {
+            if (time == null)
+                return null;
+            if (_options == null)
+                return $"{time?.Hours.ToString("00")}:{time?.Minutes.ToString("00")}:{time?.Seconds.ToString("00")}";
+
+            switch (_options.DurationFormat)
+            {
+                case EDurationFormat.TwoPointsTwoPoint:
+                default:
+                    return $"{time?.Hours.ToString("00")}:{time?.Minutes.ToString("00")}:{time?.Seconds.ToString("00")}";
+                case EDurationFormat.HyphenHyphen:
+                    return $"{time?.Hours.ToString("00")}-{time?.Minutes.ToString("00")}-{time?.Seconds.ToString("00")}";
+                case EDurationFormat.LettersLowerCase:
+                    return $"{time?.Hours.ToString("00")}h{time?.Minutes.ToString("00")}m{time?.Seconds.ToString("00")}s";
+                case EDurationFormat.LettersUpperCase:
+                    return $"{time?.Hours.ToString("00")}H{time?.Minutes.ToString("00")}M{time?.Seconds.ToString("00")}S";
+            }
         }
     }
 }

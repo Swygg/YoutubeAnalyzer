@@ -46,5 +46,17 @@ namespace IHM.Properties {
                 this["dateFormatIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int durationFormatIndex {
+            get {
+                return ((int)(this["durationFormatIndex"]));
+            }
+            set {
+                this["durationFormatIndex"] = value;
+            }
+        }
     }
 }
