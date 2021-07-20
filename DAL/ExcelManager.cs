@@ -4,6 +4,7 @@ using ExcelServices.Interfaces;
 using ExcelServices.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using YoutubeAPI.Models;
 
 namespace DAL
@@ -15,6 +16,8 @@ namespace DAL
         public static void Save(string pathFile, List<YoutubeResponse> youtubeResponse, Options options = null)
         {
             _options = options;
+            
+            CreateFolderIfNecessary(pathFile);
 
             for (int i = 0; i < youtubeResponse.Count; i++)
             {
@@ -263,12 +266,12 @@ namespace DAL
             };
         }
 
-        public static string GetDateFormat()
+        private static string GetDateFormat()
         {
             return _options?.DateFormat ?? "dd-MM-yyyy";
         }
 
-        public static string GetDateFormat(TimeSpan? time)
+        private static string GetDateFormat(TimeSpan? time)
         {
             if (time == null)
                 return null;
@@ -287,6 +290,21 @@ namespace DAL
                 case EDurationFormat.LettersUpperCase:
                     return $"{time?.Hours.ToString("00")}H{time?.Minutes.ToString("00")}M{time?.Seconds.ToString("00")}S";
             }
+        }
+
+        private static string GetNewUniqueFolderName()
+        {
+            return DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + '/';
+        }
+
+        private static void CreateFolderIfNecessary(string pathFile)
+        {
+            var folderName = GetNewUniqueFolderName();
+            if (pathFile[pathFile.Length - 1] != '/')
+                pathFile += "/";
+            pathFile += folderName;
+            if (!Directory.Exists(pathFile))
+                Directory.CreateDirectory(pathFile);
         }
     }
 }
