@@ -151,8 +151,8 @@ namespace DAL
             {
                 rowIndex++;
                 cells.Add(new Cell(rowIndex, NAME, playlist.Name));
-                cells.Add(new Cell(rowIndex, NBVIDEOS, playlist.Videos.Count));
-                cells.Add(new Cell(rowIndex, PLAYLISTINDEX, indexPlaylist++));
+                cells.Add(new Cell(rowIndex, NBVIDEOS, playlist.Videos.Count, newStyle));
+                cells.Add(new Cell(rowIndex, PLAYLISTINDEX, indexPlaylist++, newStyle));
                 cells.Add(new Cell(rowIndex, URL, playlist.Url));
             }
 
