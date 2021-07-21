@@ -94,5 +94,17 @@ namespace IHM.Properties {
                 this["billiarSeparator"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public int SortTypeIndex {
+            get {
+                return ((int)(this["SortTypeIndex"]));
+            }
+            set {
+                this["SortTypeIndex"] = value;
+            }
+        }
     }
 }

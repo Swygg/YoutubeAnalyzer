@@ -50,6 +50,11 @@ namespace IHM
             return (EDurationFormat)cb_durationFormat.SelectedIndex;
         }
 
+        private EVideoSorting GetVideoSorting()
+        {
+            return (EVideoSorting)cb_SortVideosType.SelectedIndex;
+        }
+
         private void LoadUserPersonnalDatas()
         {
             tb_folderPath.Text = IHM.Properties.Settings.Default.folderPath;
@@ -58,6 +63,7 @@ namespace IHM
             tb_thousandSeparator.Text = IHM.Properties.Settings.Default.thousandSeparator;
             tb_millionsSeparator.Text = IHM.Properties.Settings.Default.millionsSepartor;
             tb_billiardSeparator.Text = IHM.Properties.Settings.Default.billiarSeparator;
+            cb_SortVideosType.SelectedIndex = IHM.Properties.Settings.Default.SortTypeIndex;
         }
 
         private void SaveUserPersonnalDatas()
@@ -68,6 +74,7 @@ namespace IHM
             IHM.Properties.Settings.Default.thousandSeparator = tb_thousandSeparator.Text;
             IHM.Properties.Settings.Default.millionsSepartor = tb_millionsSeparator.Text;
             IHM.Properties.Settings.Default.billiarSeparator = tb_billiardSeparator.Text;
+            IHM.Properties.Settings.Default.SortTypeIndex = cb_SortVideosType.SelectedIndex;
             IHM.Properties.Settings.Default.Save();
         }
 
@@ -79,7 +86,7 @@ namespace IHM
                 DurationFormat = GetDurationFormat(),
                 ThousandSeparator = tb_thousandSeparator.Text,
                 MillionsSeparator = tb_millionsSeparator.Text,
-                BilliardSeparator = tb_billiardSeparator.Text
+                BilliardSeparator = tb_billiardSeparator.Text,
             };
         }
 
@@ -121,15 +128,15 @@ namespace IHM
             {
                 if (youtubeResponse.Channel != null)
                 {
-                    youtubeResponse.Channel.Videos = youtubeResponse.Channel.Videos.OrderByDescending(x => x.NbViews).ToList();
+                    youtubeResponse.Channel.Videos = SortVideos(youtubeResponse.Channel.Videos);
                     foreach (var playlist in youtubeResponse.Channel.Playlists)
                     {
-                        playlist.Videos = playlist.Videos.OrderByDescending(x => x.NbViews).ToList();
+                        playlist.Videos = SortVideos(playlist.Videos);
                     }
                 }
                 if (youtubeResponse.Playlist != null)
                 {
-                    youtubeResponse.Playlist.Videos = youtubeResponse.Playlist.Videos.OrderByDescending(x => x.NbViews).ToList();
+                    youtubeResponse.Playlist.Videos = SortVideos(youtubeResponse.Playlist.Videos);
                 }
             }
 
@@ -155,6 +162,41 @@ namespace IHM
         {
             lbl_ProcessState.Text = $"{_processState} work finished";
             Cursor.Current = Cursors.Default;
+        }
+
+        private List<YoutubeVideo> SortVideos(List<YoutubeVideo> videosUnsorted)
+        {
+            var sort = GetVideoSorting();
+            switch (sort)
+            {
+                case EVideoSorting.NotSorted:
+                default:
+                    return videosUnsorted;
+                case EVideoSorting.DurationAsc:
+                    return videosUnsorted.OrderBy(v => v.Duration).ToList();
+                case EVideoSorting.DurationDesc:
+                    return videosUnsorted.OrderByDescending(v => v.Duration).ToList();
+                case EVideoSorting.DateCreationAsc:
+                    return videosUnsorted.OrderBy(v => v.CreationDate).ToList();
+                case EVideoSorting.DateCreationDesc:
+                    return videosUnsorted.OrderByDescending(v => v.CreationDate).ToList();
+                case EVideoSorting.NumberViewsAsc:
+                    return videosUnsorted.OrderBy(v => v.NbViews).ToList();
+                case EVideoSorting.NumberViewsDesc:
+                    return videosUnsorted.OrderByDescending(v => v.NbViews).ToList();
+                case EVideoSorting.NumberPositivesFeedbackAsc:
+                    return videosUnsorted.OrderBy(v => v.NbPositiveFeedbacks).ToList();
+                case EVideoSorting.NumberPositivesFeedbackDesc:
+                    return videosUnsorted.OrderByDescending(v => v.NbPositiveFeedbacks).ToList();
+                case EVideoSorting.NumberNegativesFeedbackAsc:
+                    return videosUnsorted.OrderBy(v => v.NbNegativeFeedbacks).ToList();
+                case EVideoSorting.NumberNegativesFeedbackDesc:
+                    return videosUnsorted.OrderByDescending(v => v.NbNegativeFeedbacks).ToList();
+                case EVideoSorting.NameAsc:
+                    return videosUnsorted.OrderBy(v => v.Name).ToList();
+                case EVideoSorting.NameDesc:
+                    return videosUnsorted.OrderByDescending(v => v.Name).ToList();
+            }
         }
         #endregion
 
