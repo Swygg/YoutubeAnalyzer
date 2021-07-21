@@ -46,6 +46,7 @@ namespace IHM
             this.label6 = new System.Windows.Forms.Label();
             this.tb_thousandSeparator = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.lbl_ProcessState = new System.Windows.Forms.Label();
             this.gb_ExcelOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -239,11 +240,22 @@ namespace IHM
             this.label3.TabIndex = 102;
             this.label3.Text = "Thousand separator";
             // 
+            // lbl_ProcessState
+            // 
+            this.lbl_ProcessState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbl_ProcessState.AutoSize = true;
+            this.lbl_ProcessState.Location = new System.Drawing.Point(18, 338);
+            this.lbl_ProcessState.Name = "lbl_ProcessState";
+            this.lbl_ProcessState.Size = new System.Drawing.Size(217, 15);
+            this.lbl_ProcessState.TabIndex = 103;
+            this.lbl_ProcessState.Text = "State of process : waiting for user action";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(657, 365);
+            this.Controls.Add(this.lbl_ProcessState);
             this.Controls.Add(this.gb_ExcelOptions);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tb_urls);
@@ -280,6 +292,7 @@ namespace IHM
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tb_millionsSeparator;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbl_ProcessState;
     }
 }
 

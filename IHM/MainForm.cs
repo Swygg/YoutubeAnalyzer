@@ -11,6 +11,8 @@ namespace IHM
 {
     public partial class MainForm : Form
     {
+        private string _processState = "State of process : ";
+
         #region CONSTRUCTOR
         public MainForm()
         {
@@ -80,12 +82,8 @@ namespace IHM
                 BilliardSeparator = tb_billiardSeparator.Text
             };
         }
-        #endregion
 
-
-
-        #region EVENTS
-        private void btn_Analyze_Click(object sender, EventArgs e)
+        private void Analyze()
         {
             if (string.IsNullOrEmpty(tb_urls.Text))
             {
@@ -99,7 +97,7 @@ namespace IHM
             }
 
 
-
+            InformUserProcessIsStarting();
 
             var startProcess = DateTime.Now;
             var youtubeResponses = new List<YoutubeResponse>();
@@ -138,11 +136,32 @@ namespace IHM
             Options options = GetOptions();
 
             DAL.ExcelManager.Save(tb_folderPath.Text, youtubeResponses, options);
+
+            InformUserProcessIsFinished();
             var endProcess = DateTime.Now;
             var time = endProcess - startProcess;
             var successMessage = $"The datas have been saved in {tb_folderPath.Text}" + Environment.NewLine +
                 $"Work done in {GetDurationReadableFormat(time)}";
             MessageBox.Show(successMessage, "Succss", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void InformUserProcessIsStarting()
+        {
+            lbl_ProcessState.Text = $"{_processState} working";
+        }
+
+        private void InformUserProcessIsFinished()
+        {
+            lbl_ProcessState.Text = $"{_processState} work finished";
+        }
+        #endregion
+
+
+
+        #region EVENTS
+        private void btn_Analyze_Click(object sender, EventArgs e)
+        {
+            Analyze();
         }
 
         private void changePath_btn_Click(object sender, EventArgs e)
