@@ -148,11 +148,13 @@ namespace IHM
         private void InformUserProcessIsStarting()
         {
             lbl_ProcessState.Text = $"{_processState} working";
+            Cursor.Current = Cursors.WaitCursor;
         }
 
         private void InformUserProcessIsFinished()
         {
             lbl_ProcessState.Text = $"{_processState} work finished";
+            Cursor.Current = Cursors.Default;
         }
         #endregion
 
