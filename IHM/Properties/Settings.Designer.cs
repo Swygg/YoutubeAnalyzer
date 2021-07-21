@@ -58,5 +58,41 @@ namespace IHM.Properties {
                 this["durationFormatIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\'")]
+        public string thousandSeparator {
+            get {
+                return ((string)(this["thousandSeparator"]));
+            }
+            set {
+                this["thousandSeparator"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"")]
+        public string millionsSepartor {
+            get {
+                return ((string)(this["millionsSepartor"]));
+            }
+            set {
+                this["millionsSepartor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("M")]
+        public string billiarSeparator {
+            get {
+                return ((string)(this["billiarSeparator"]));
+            }
+            set {
+                this["billiarSeparator"] = value;
+            }
+        }
     }
 }

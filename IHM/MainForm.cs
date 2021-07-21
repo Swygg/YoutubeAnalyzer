@@ -53,6 +53,9 @@ namespace IHM
             tb_folderPath.Text = IHM.Properties.Settings.Default.folderPath;
             cb_DateFormat.SelectedIndex = IHM.Properties.Settings.Default.dateFormatIndex;
             cb_durationFormat.SelectedIndex = IHM.Properties.Settings.Default.durationFormatIndex;
+            tb_thousandSeparator.Text = IHM.Properties.Settings.Default.thousandSeparator;
+            tb_millionsSeparator.Text = IHM.Properties.Settings.Default.millionsSepartor;
+            tb_billiardSeparator.Text = IHM.Properties.Settings.Default.billiarSeparator;
         }
 
         private void SaveUserPersonnalDatas()
@@ -60,7 +63,22 @@ namespace IHM
             IHM.Properties.Settings.Default.folderPath = tb_folderPath.Text;
             IHM.Properties.Settings.Default.dateFormatIndex = cb_DateFormat.SelectedIndex;
             IHM.Properties.Settings.Default.durationFormatIndex = cb_durationFormat.SelectedIndex;
+            IHM.Properties.Settings.Default.thousandSeparator = tb_thousandSeparator.Text;
+            IHM.Properties.Settings.Default.millionsSepartor = tb_millionsSeparator.Text;
+            IHM.Properties.Settings.Default.billiarSeparator = tb_billiardSeparator.Text;
             IHM.Properties.Settings.Default.Save();
+        }
+
+        private Options GetOptions()
+        {
+            return new Options()
+            {
+                DateFormat = GetDateFormat(),
+                DurationFormat = GetDurationFormat(),
+                ThousandSeparator = tb_thousandSeparator.Text,
+                MillionsSeparator = tb_millionsSeparator.Text,
+                BilliardSeparator = tb_billiardSeparator.Text
+            };
         }
         #endregion
 
@@ -111,17 +129,13 @@ namespace IHM
                         playlist.Videos = playlist.Videos.OrderByDescending(x => x.NbViews).ToList();
                     }
                 }
-                if(youtubeResponse.Playlist!=null)
+                if (youtubeResponse.Playlist != null)
                 {
                     youtubeResponse.Playlist.Videos = youtubeResponse.Playlist.Videos.OrderByDescending(x => x.NbViews).ToList();
-                }                
+                }
             }
 
-            Options options = new Options()
-            {
-                DateFormat = GetDateFormat(),
-                DurationFormat = GetDurationFormat()
-            };
+            Options options = GetOptions();
 
             DAL.ExcelManager.Save(tb_folderPath.Text, youtubeResponses, options);
             var endProcess = DateTime.Now;
@@ -172,6 +186,6 @@ namespace IHM
         }
         #endregion
 
-       
+
     }
 }

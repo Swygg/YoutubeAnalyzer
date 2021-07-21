@@ -11,5 +11,14 @@
     <Setting Name="durationFormatIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="thousandSeparator" Type="System.String" Scope="User">
+      <Value Profile="(Default)">'</Value>
+    </Setting>
+    <Setting Name="millionsSepartor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">"</Value>
+    </Setting>
+    <Setting Name="billiarSeparator" Type="System.String" Scope="User">
+      <Value Profile="(Default)">M</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

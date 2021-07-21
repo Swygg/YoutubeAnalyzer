@@ -5,6 +5,7 @@ using ExcelServices.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using YoutubeAPI.Models;
 
 namespace DAL
@@ -101,11 +102,11 @@ namespace DAL
 
             //NB SUBSCRIBER
             cells.Add(new Cell(++rowIndex, 0, "Nb subscribers", titleStyle));
-            cells.Add(new Cell(rowIndex, 1, youtubeChannel.NbSubscribers));
+            cells.Add(new Cell(rowIndex, 1, GetFormatedNumber(youtubeChannel.NbSubscribers)));
 
             //NB VIEWS
             cells.Add(new Cell(++rowIndex, 0, "Nb views", titleStyle));
-            cells.Add(new Cell(rowIndex, 1, youtubeChannel.NbViews));
+            cells.Add(new Cell(rowIndex, 1, GetFormatedNumber(youtubeChannel.NbViews)));
 
             //SUBSCRIPTION DATE
             cells.Add(new Cell(++rowIndex, 0, "Subscription date", titleStyle));
@@ -228,9 +229,9 @@ namespace DAL
                 cells.Add(new Cell(rowIndex, NAME, video.Name));
                 cells.Add(new Cell(rowIndex, DURATION, GetDateFormat(video.Duration), newStyle));
                 cells.Add(new Cell(rowIndex, CREATIONDATE, video.CreationDate?.ToString(GetDateFormat()), newStyle));
-                cells.Add(new Cell(rowIndex, NBVIEW, video.NbViews, newStyle));
-                cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, video.NbPositiveFeedbacks, newStyle));
-                cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, video.NbNegativeFeedbacks, newStyle));
+                cells.Add(new Cell(rowIndex, NBVIEW, GetFormatedNumber(video.NbViews), newStyle));
+                cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, GetFormatedNumber(video.NbPositiveFeedbacks), newStyle));
+                cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, GetFormatedNumber(video.NbNegativeFeedbacks), newStyle));
                 cells.Add(new Cell(rowIndex, URL, video.Url));
                 cells.Add(new Cell(rowIndex, DESCRIPTION, video.Description));
             }
@@ -306,6 +307,28 @@ namespace DAL
             if (!Directory.Exists(pathFolder))
                 Directory.CreateDirectory(pathFolder);
             return pathFolder;
+        }
+
+        private static string GetFormatedNumber(int number)
+        {
+            var sb = new StringBuilder();
+            var value = string.Empty;
+            foreach (var item in number.ToString())
+            {
+                value = item + value;
+            }
+
+            for (int i = value.Length - 1; i >= 0; i--)
+            {
+                sb.Append(value[i]);
+                if (i == 10 && _options.BilliardSeparator != null)
+                    sb.Append(_options.BilliardSeparator);
+                else if (i == 6 && _options.MillionsSeparator != null)
+                    sb.Append(_options.MillionsSeparator);
+                else if (i == 3 && _options.ThousandSeparator != null)
+                    sb.Append(_options.ThousandSeparator);
+            }
+            return sb.ToString();
         }
     }
 }
