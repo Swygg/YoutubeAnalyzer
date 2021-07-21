@@ -13,11 +13,11 @@ namespace DAL
     {
         private static Options _options;
 
-        public static void Save(string pathFile, List<YoutubeResponse> youtubeResponse, Options options = null)
+        public static void Save(string pathFolder, List<YoutubeResponse> youtubeResponse, Options options = null)
         {
             _options = options;
-            
-            CreateFolderIfNecessary(pathFile);
+
+            pathFolder = CreateFolderIfNecessary(pathFolder);
 
             for (int i = 0; i < youtubeResponse.Count; i++)
             {
@@ -26,16 +26,16 @@ namespace DAL
                 var indexVideos = 1;
                 if (youtubeResponse[i].Channel != null)
                 {
-                    SaveChannel(pathFile, youtubeResponse[i].Channel, indexChannels);
+                    SaveChannel(pathFolder, youtubeResponse[i].Channel, indexChannels);
 
                 }
                 else if (youtubeResponse[i].Playlist != null)
                 {
-                    SavePlaylist(pathFile, youtubeResponse[i].Playlist, indexPlaylists);
+                    SavePlaylist(pathFolder, youtubeResponse[i].Playlist, indexPlaylists);
                 }
                 else if (youtubeResponse[i].Video != null)
                 {
-                    SaveVideo(pathFile, youtubeResponse[i].Video, indexVideos);
+                    SaveVideo(pathFolder, youtubeResponse[i].Video, indexVideos);
                 }
             }
         }
@@ -297,14 +297,15 @@ namespace DAL
             return DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + '/';
         }
 
-        private static void CreateFolderIfNecessary(string pathFile)
+        private static string CreateFolderIfNecessary(string pathFolder)
         {
             var folderName = GetNewUniqueFolderName();
-            if (pathFile[pathFile.Length - 1] != '/')
-                pathFile += "/";
-            pathFile += folderName;
-            if (!Directory.Exists(pathFile))
-                Directory.CreateDirectory(pathFile);
+            if (pathFolder[pathFolder.Length - 1] != '/')
+                pathFolder += "/";
+            pathFolder += folderName;
+            if (!Directory.Exists(pathFolder))
+                Directory.CreateDirectory(pathFolder);
+            return pathFolder;
         }
     }
 }
