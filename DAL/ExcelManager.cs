@@ -20,22 +20,26 @@ namespace DAL
 
             pathFolder = CreateFolderIfNecessary(pathFolder);
 
+            var indexChannels = 0;
+            var indexPlaylists = 0;
+            var indexVideos = 0;
             for (int i = 0; i < youtubeResponse.Count; i++)
             {
-                var indexChannels = 1;
-                var indexPlaylists = 1;
-                var indexVideos = 1;
+
                 if (youtubeResponse[i].Channel != null)
                 {
+                    indexChannels++;
                     SaveChannel(pathFolder, youtubeResponse[i].Channel, indexChannels);
 
                 }
                 else if (youtubeResponse[i].Playlist != null)
                 {
+                    indexPlaylists++;
                     SavePlaylist(pathFolder, youtubeResponse[i].Playlist, indexPlaylists);
                 }
                 else if (youtubeResponse[i].Video != null)
                 {
+                    indexVideos++;
                     SaveVideo(pathFolder, youtubeResponse[i].Video, indexVideos);
                 }
             }
