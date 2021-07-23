@@ -40,6 +40,8 @@ namespace IHM
             this.label5 = new System.Windows.Forms.Label();
             this.cb_durationFormat = new System.Windows.Forms.ComboBox();
             this.gb_ExcelOptions = new System.Windows.Forms.GroupBox();
+            this.cb_SortVideosType = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.tb_billiardSeparator = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tb_millionsSeparator = new System.Windows.Forms.TextBox();
@@ -47,15 +49,13 @@ namespace IHM
             this.tb_thousandSeparator = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lbl_ProcessState = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cb_SortVideosType = new System.Windows.Forms.ComboBox();
             this.gb_ExcelOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_Analyze
             // 
             this.btn_Analyze.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Analyze.Location = new System.Drawing.Point(533, 337);
+            this.btn_Analyze.Location = new System.Drawing.Point(533, 266);
             this.btn_Analyze.Name = "btn_Analyze";
             this.btn_Analyze.Size = new System.Drawing.Size(112, 23);
             this.btn_Analyze.TabIndex = 99;
@@ -71,7 +71,7 @@ namespace IHM
             this.tb_urls.Location = new System.Drawing.Point(158, 6);
             this.tb_urls.Multiline = true;
             this.tb_urls.Name = "tb_urls";
-            this.tb_urls.Size = new System.Drawing.Size(487, 144);
+            this.tb_urls.Size = new System.Drawing.Size(487, 73);
             this.tb_urls.TabIndex = 1;
             this.tb_urls.Text = "https://www.youtube.com/user/LesTutosdeHuito";
             // 
@@ -186,12 +186,46 @@ namespace IHM
             this.gb_ExcelOptions.Controls.Add(this.btn_changePath);
             this.gb_ExcelOptions.Controls.Add(this.cb_DateFormat);
             this.gb_ExcelOptions.Controls.Add(this.label4);
-            this.gb_ExcelOptions.Location = new System.Drawing.Point(12, 156);
+            this.gb_ExcelOptions.Location = new System.Drawing.Point(12, 85);
             this.gb_ExcelOptions.Name = "gb_ExcelOptions";
             this.gb_ExcelOptions.Size = new System.Drawing.Size(633, 175);
             this.gb_ExcelOptions.TabIndex = 102;
             this.gb_ExcelOptions.TabStop = false;
             this.gb_ExcelOptions.Text = "Excel options :";
+            // 
+            // cb_SortVideosType
+            // 
+            this.cb_SortVideosType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cb_SortVideosType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_SortVideosType.FormattingEnabled = true;
+            this.cb_SortVideosType.Items.AddRange(new object[] {
+            "Not Sorted",
+            "Duration (asc)",
+            "Duration (desc)",
+            "Date creation (asc)",
+            "Date creation (desc)",
+            "Number views (asc)",
+            "Number views (desc)",
+            "Number positives feedback (asc)",
+            "Number positives feedback (desc)",
+            "Number negatives feedback (asc)",
+            "Number negatives feedback (desc)",
+            "Name (asc)",
+            "Name (desc)"});
+            this.cb_SortVideosType.Location = new System.Drawing.Point(146, 142);
+            this.cb_SortVideosType.Name = "cb_SortVideosType";
+            this.cb_SortVideosType.Size = new System.Drawing.Size(472, 23);
+            this.cb_SortVideosType.TabIndex = 9;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 148);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(87, 15);
+            this.label8.TabIndex = 107;
+            this.label8.Text = "Sort videos by :";
             // 
             // tb_billiardSeparator
             // 
@@ -248,51 +282,17 @@ namespace IHM
             // 
             this.lbl_ProcessState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_ProcessState.AutoSize = true;
-            this.lbl_ProcessState.Location = new System.Drawing.Point(18, 345);
+            this.lbl_ProcessState.Location = new System.Drawing.Point(18, 274);
             this.lbl_ProcessState.Name = "lbl_ProcessState";
             this.lbl_ProcessState.Size = new System.Drawing.Size(217, 15);
             this.lbl_ProcessState.TabIndex = 103;
             this.lbl_ProcessState.Text = "State of process : waiting for user action";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 148);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(87, 15);
-            this.label8.TabIndex = 107;
-            this.label8.Text = "Sort videos by :";
-            // 
-            // cb_SortVideosType
-            // 
-            this.cb_SortVideosType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cb_SortVideosType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_SortVideosType.FormattingEnabled = true;
-            this.cb_SortVideosType.Items.AddRange(new object[] {
-            "Not Sorted",
-            "Duration (asc)",
-            "Duration (desc)",
-            "Date creation (asc)",
-            "Date creation (desc)",
-            "Number views (asc)",
-            "Number views (desc)",
-            "Number positives feedback (asc)",
-            "Number positives feedback (desc)",
-            "Number negatives feedback (asc)",
-            "Number negatives feedback (desc)",
-            "Name (asc)",
-            "Name (desc)"});
-            this.cb_SortVideosType.Location = new System.Drawing.Point(146, 142);
-            this.cb_SortVideosType.Name = "cb_SortVideosType";
-            this.cb_SortVideosType.Size = new System.Drawing.Size(472, 23);
-            this.cb_SortVideosType.TabIndex = 9;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(657, 372);
+            this.ClientSize = new System.Drawing.Size(657, 301);
             this.Controls.Add(this.lbl_ProcessState);
             this.Controls.Add(this.gb_ExcelOptions);
             this.Controls.Add(this.label1);
@@ -300,7 +300,7 @@ namespace IHM
             this.Controls.Add(this.btn_Analyze);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(605, 283);
+            this.MinimumSize = new System.Drawing.Size(673, 340);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Youtube Analyzer (by Svik)";
