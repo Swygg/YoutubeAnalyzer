@@ -13,6 +13,7 @@ namespace IHM
     {
         private string _processState = "State of process : ";
 
+
         #region CONSTRUCTOR
         public MainForm()
         {
@@ -24,72 +25,16 @@ namespace IHM
 
 
 
-        #region PRIVATES METHODES
-        private List<string> GetLinks()
-        {
-            return tb_urls.Text.Split(Environment.NewLine).ToList();
-        }
-
-        private void ShowError(string message)
-        {
-            MessageBox.Show(message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
+        #region Static methods
         private static string GetDurationReadableFormat(TimeSpan durationHardToRead)
         {
             return $"{durationHardToRead.Hours.ToString("00")}:{durationHardToRead.Minutes.ToString("00")}:{durationHardToRead.Seconds.ToString("00")}";
         }
+        #endregion
 
-        private string GetDateFormat()
-        {
-            return cb_DateFormat.SelectedItem.ToString();
-        }
 
-        private EDurationFormat GetDurationFormat()
-        {
-            return (EDurationFormat)cb_durationFormat.SelectedIndex;
-        }
 
-        private EVideoSorting GetVideoSorting()
-        {
-            return (EVideoSorting)cb_SortVideosType.SelectedIndex;
-        }
-
-        private void LoadUserPersonnalDatas()
-        {
-            tb_folderPath.Text = IHM.Properties.Settings.Default.folderPath;
-            cb_DateFormat.SelectedIndex = IHM.Properties.Settings.Default.dateFormatIndex;
-            cb_durationFormat.SelectedIndex = IHM.Properties.Settings.Default.durationFormatIndex;
-            tb_thousandSeparator.Text = IHM.Properties.Settings.Default.thousandSeparator;
-            tb_millionsSeparator.Text = IHM.Properties.Settings.Default.millionsSepartor;
-            tb_billiardSeparator.Text = IHM.Properties.Settings.Default.billiarSeparator;
-            cb_SortVideosType.SelectedIndex = IHM.Properties.Settings.Default.SortTypeIndex;
-        }
-
-        private void SaveUserPersonnalDatas()
-        {
-            IHM.Properties.Settings.Default.folderPath = tb_folderPath.Text;
-            IHM.Properties.Settings.Default.dateFormatIndex = cb_DateFormat.SelectedIndex;
-            IHM.Properties.Settings.Default.durationFormatIndex = cb_durationFormat.SelectedIndex;
-            IHM.Properties.Settings.Default.thousandSeparator = tb_thousandSeparator.Text;
-            IHM.Properties.Settings.Default.millionsSepartor = tb_millionsSeparator.Text;
-            IHM.Properties.Settings.Default.billiarSeparator = tb_billiardSeparator.Text;
-            IHM.Properties.Settings.Default.SortTypeIndex = cb_SortVideosType.SelectedIndex;
-            IHM.Properties.Settings.Default.Save();
-        }
-
-        private Options GetOptions()
-        {
-            return new Options()
-            {
-                DateFormat = GetDateFormat(),
-                DurationFormat = GetDurationFormat(),
-                ThousandSeparator = tb_thousandSeparator.Text,
-                MillionsSeparator = tb_millionsSeparator.Text,
-                BilliardSeparator = tb_billiardSeparator.Text,
-            };
-        }
-
+        #region PRIVATES METHODES
         private void Analyze()
         {
             if (string.IsNullOrEmpty(tb_urls.Text))
@@ -152,18 +97,6 @@ namespace IHM
             MessageBox.Show(successMessage, "Succss", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void InformUserProcessIsStarting()
-        {
-            lbl_ProcessState.Text = $"{_processState} working";
-            Cursor.Current = Cursors.WaitCursor;
-        }
-
-        private void InformUserProcessIsFinished()
-        {
-            lbl_ProcessState.Text = $"{_processState} work finished";
-            Cursor.Current = Cursors.Default;
-        }
-
         private List<YoutubeVideo> SortVideos(List<YoutubeVideo> videosUnsorted)
         {
             var sort = GetVideoSorting();
@@ -197,6 +130,86 @@ namespace IHM
                 case EVideoSorting.NameDesc:
                     return videosUnsorted.OrderByDescending(v => v.Name).ToList();
             }
+        }
+        #endregion
+
+
+
+        #region User choice get methods
+        private List<string> GetLinks()
+        {
+            return tb_urls.Text.Split(Environment.NewLine).ToList();
+        }
+
+        private Options GetOptions()
+        {
+            return new Options()
+            {
+                DateFormat = GetDateFormat(),
+                DurationFormat = GetDurationFormat(),
+                ThousandSeparator = tb_thousandSeparator.Text,
+                MillionsSeparator = tb_millionsSeparator.Text,
+                BilliardSeparator = tb_billiardSeparator.Text,
+            };
+        }
+
+        private string GetDateFormat()
+        {
+            return cb_DateFormat.SelectedItem.ToString();
+        }
+
+        private EDurationFormat GetDurationFormat()
+        {
+            return (EDurationFormat)cb_durationFormat.SelectedIndex;
+        }
+
+        private EVideoSorting GetVideoSorting()
+        {
+            return (EVideoSorting)cb_SortVideosType.SelectedIndex;
+        }
+        #endregion
+
+
+
+        #region User experience functions
+        private void InformUserProcessIsStarting()
+        {
+            lbl_ProcessState.Text = $"{_processState} working";
+            Cursor.Current = Cursors.WaitCursor;
+        }
+
+        private void InformUserProcessIsFinished()
+        {
+            lbl_ProcessState.Text = $"{_processState} work finished";
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void ShowError(string message)
+        {
+            MessageBox.Show(message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void LoadUserPersonnalDatas()
+        {
+            tb_folderPath.Text = IHM.Properties.Settings.Default.folderPath;
+            cb_DateFormat.SelectedIndex = IHM.Properties.Settings.Default.dateFormatIndex;
+            cb_durationFormat.SelectedIndex = IHM.Properties.Settings.Default.durationFormatIndex;
+            tb_thousandSeparator.Text = IHM.Properties.Settings.Default.thousandSeparator;
+            tb_millionsSeparator.Text = IHM.Properties.Settings.Default.millionsSepartor;
+            tb_billiardSeparator.Text = IHM.Properties.Settings.Default.billiarSeparator;
+            cb_SortVideosType.SelectedIndex = IHM.Properties.Settings.Default.SortTypeIndex;
+        }
+
+        private void SaveUserPersonnalDatas()
+        {
+            IHM.Properties.Settings.Default.folderPath = tb_folderPath.Text;
+            IHM.Properties.Settings.Default.dateFormatIndex = cb_DateFormat.SelectedIndex;
+            IHM.Properties.Settings.Default.durationFormatIndex = cb_durationFormat.SelectedIndex;
+            IHM.Properties.Settings.Default.thousandSeparator = tb_thousandSeparator.Text;
+            IHM.Properties.Settings.Default.millionsSepartor = tb_millionsSeparator.Text;
+            IHM.Properties.Settings.Default.billiarSeparator = tb_billiardSeparator.Text;
+            IHM.Properties.Settings.Default.SortTypeIndex = cb_SortVideosType.SelectedIndex;
+            IHM.Properties.Settings.Default.Save();
         }
         #endregion
 
