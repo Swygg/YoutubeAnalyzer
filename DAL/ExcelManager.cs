@@ -49,7 +49,7 @@ namespace DAL
         {
             var workbook = new Workbook
             {
-                Name = $"Channel-{index}"
+                Name = $"{Resources.Strings.Channel}-{index}"
             };
 
             workbook.Worksheets.Add(GetPresentationWorksheet(channel));
@@ -57,7 +57,7 @@ namespace DAL
             workbook.Worksheets.Add(GetPlaylistsWorksheet(channel.Playlists));
             for (int indexPlaylist = 0; indexPlaylist < channel.Playlists.Count; indexPlaylist++)
             {
-                workbook.Worksheets.Add(GetVideosWorksheet(channel.Playlists[indexPlaylist].Videos, $"Playlist {indexPlaylist + 1}"));
+                workbook.Worksheets.Add(GetVideosWorksheet(channel.Playlists[indexPlaylist].Videos, $"{Resources.Strings.Playlist} {indexPlaylist + 1}"));
             }
 
             IExcelService ExcelService = GetExcelService();
@@ -68,11 +68,11 @@ namespace DAL
         {
             var workbook = new Workbook
             {
-                Name = $"Playlist-{index}"
+                Name = $"{Resources.Strings.Playlist}-{index}"
             };
 
             workbook.Worksheets.Add(GetPlaylistsWorksheet(new List<YoutubePlaylist>() { playlist }));
-            workbook.Worksheets.Add(GetVideosWorksheet(playlist.Videos, $"Playlist 1"));
+            workbook.Worksheets.Add(GetVideosWorksheet(playlist.Videos, $"{Resources.Strings.Playlist} 1"));
 
             IExcelService ExcelService = GetExcelService();
             ExcelService.Create(pathFile, workbook);
@@ -82,10 +82,10 @@ namespace DAL
         {
             var workbook = new Workbook
             {
-                Name = $"Video-{index}"
+                Name = $"{Resources.Strings.Video}-{index}"
             };
 
-            workbook.Worksheets.Add(GetVideosWorksheet(new List<YoutubeVideo>() { video }, $"Video"));
+            workbook.Worksheets.Add(GetVideosWorksheet(new List<YoutubeVideo>() { video }, Resources.Strings.Video));
 
             IExcelService ExcelService = GetExcelService();
             ExcelService.Create(pathFile, workbook);
@@ -94,42 +94,42 @@ namespace DAL
         private static Worksheet GetPresentationWorksheet(YoutubeChannel youtubeChannel)
         {
             var worksheet = new Worksheet();
-            worksheet.Name = "Presentation";
+            worksheet.Name = Resources.Strings.Presentation;
 
             var cells = new List<Cell>();
             var titleStyle = GetTitleStyle();
             var rowIndex = 0;
 
             //NAME
-            cells.Add(new Cell(rowIndex, 0, "Name", titleStyle));
+            cells.Add(new Cell(rowIndex, 0, Resources.Strings.Data_Name, titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.Name));
 
             //NB SUBSCRIBER
-            cells.Add(new Cell(++rowIndex, 0, "Nb subscribers", titleStyle));
+            cells.Add(new Cell(++rowIndex, 0, Resources.Strings.Data_NbSubscribers, titleStyle));
             cells.Add(new Cell(rowIndex, 1, GetFormatedNumber(youtubeChannel.NbSubscribers)));
 
             //NB VIEWS
-            cells.Add(new Cell(++rowIndex, 0, "Nb views", titleStyle));
+            cells.Add(new Cell(++rowIndex, 0, Resources.Strings.Data_NbViews, titleStyle));
             cells.Add(new Cell(rowIndex, 1, GetFormatedNumber(youtubeChannel.NbViews)));
 
             //SUBSCRIPTION DATE
-            cells.Add(new Cell(++rowIndex, 0, "Subscription date", titleStyle));
+            cells.Add(new Cell(++rowIndex, 0, Resources.Strings.Data_SubscriptionDate, titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.SubscriptionDate?.ToString(GetDateFormat())));
 
             //TRUE URL
-            cells.Add(new Cell(++rowIndex, 0, "True url", titleStyle));
+            cells.Add(new Cell(++rowIndex, 0, Resources.Strings.Data_SubscriptionDate, titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.TrueUrl));
 
             //FACEBOOK LINK
-            cells.Add(new Cell(++rowIndex, 0, "Facebook link", titleStyle));
+            cells.Add(new Cell(++rowIndex, 0, Resources.Strings.Data_FacebookLink, titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.FacebookLink));
 
             //TWITTER LINK
-            cells.Add(new Cell(++rowIndex, 0, "Twitter link", titleStyle));
+            cells.Add(new Cell(++rowIndex, 0, Resources.Strings.Data_TwitterLink, titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.TwitterLink));
 
             //DESCRIPTION
-            cells.Add(new Cell(++rowIndex, 0, "Description", titleStyle));
+            cells.Add(new Cell(++rowIndex, 0, Resources.Strings.Data_Description, titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.Description));
 
             worksheet.Cells = cells;
@@ -145,7 +145,7 @@ namespace DAL
         {
             var worksheet = new Worksheet
             {
-                Name = "PlayLists"
+                Name = Resources.Strings.Playlists
             };
 
             var cells = new List<Cell>();
@@ -166,10 +166,10 @@ namespace DAL
             };
 
             // COLUMNS NAME
-            cells.Add(new Cell(rowIndex, NAME, "Name", titleStyle));
-            cells.Add(new Cell(rowIndex, NBVIDEOS, "Nb videos", titleStyle));
-            cells.Add(new Cell(rowIndex, PLAYLISTINDEX, "Playlist index", titleStyle));
-            cells.Add(new Cell(rowIndex, URL, "Url", titleStyle));
+            cells.Add(new Cell(rowIndex, NAME, Resources.Strings.Data_Name, titleStyle));
+            cells.Add(new Cell(rowIndex, NBVIDEOS, Resources.Strings.Data_NbVideos, titleStyle));
+            cells.Add(new Cell(rowIndex, PLAYLISTINDEX, Resources.Strings.Data_PlaylistIndex, titleStyle));
+            cells.Add(new Cell(rowIndex, URL, Resources.Strings.Url, titleStyle));
 
             int indexPlaylist = 1;
             foreach (var playlist in playlists)
