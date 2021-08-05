@@ -78,7 +78,7 @@ namespace YoutubeAPI.Helpers
                         monthInNumber = 12;
                         break;
                     default:
-                        throw new Exception($"Erreur durant le mappage de la date. La valeur \"{monthInString}\" ne peut être mappée.");
+                        throw new Exception(string.Format(Resources.Strings.Err_UnknownMonth, monthInString));
                 }
 
                 return new DateTime(int.Parse(yearhInNumber), monthInNumber, int.Parse(daysInNumber));

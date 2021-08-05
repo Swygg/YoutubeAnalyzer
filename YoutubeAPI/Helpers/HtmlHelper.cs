@@ -24,7 +24,7 @@ namespace YoutubeAPI.Helpers
         public static string GetHtmlFromUrl(string url)
         {
             if (string.IsNullOrEmpty(url))
-                throw new Exception("Url null or empty");
+                throw new Exception(Resources.Strings.Err_UrlNullOrEmpty);
 
             using WebClient webclient = new();
             return webclient.DownloadString(url);
