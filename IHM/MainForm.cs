@@ -5,19 +5,21 @@ using System.Windows.Forms;
 using YoutubeAPI.Models;
 using YoutubeAPI.Services;
 using DAL.Models;
-
+using System.Threading;
+using System.Globalization;
 
 namespace IHM
 {
     public partial class MainForm : Form
     {
-        private string _processState = "State of process : ";
+        private string _processState = Properties.Strings.ProcessState;
 
 
         #region CONSTRUCTOR
         public MainForm()
         {
             InitializeComponent();
+            this.Localization();
             this.LoadUserPersonnalDatas();
             this.FormClosing += MainForm_FormClosing;
         }
@@ -39,12 +41,12 @@ namespace IHM
         {
             if (string.IsNullOrEmpty(tb_urls.Text))
             {
-                this.ShowError("You must give at least one url");
+                this.ShowError(Properties.Strings.Err_OneUrlMinimum);
                 return;
             }
             if (string.IsNullOrEmpty(tb_folderPath.Text))
             {
-                this.ShowError("You must give a folder path");
+                this.ShowError(Properties.Strings.Err_UserMustGiveOneFolderPath);
                 return;
             }
 
@@ -92,9 +94,10 @@ namespace IHM
             InformUserProcessIsFinished();
             var endProcess = DateTime.Now;
             var time = endProcess - startProcess;
-            var successMessage = $"The datas have been saved in {tb_folderPath.Text}" + Environment.NewLine +
-                $"Work done in {GetDurationReadableFormat(time)}";
-            MessageBox.Show(successMessage, "Succss", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var successMessage = string.Format(Properties.Strings.SuccessMessage,
+                tb_folderPath.Text + Environment.NewLine,
+                GetDurationReadableFormat(time));
+            MessageBox.Show(successMessage, Properties.Strings.SuccessTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private List<YoutubeVideo> SortVideos(List<YoutubeVideo> videosUnsorted)
@@ -174,19 +177,19 @@ namespace IHM
         #region User experience functions
         private void InformUserProcessIsStarting()
         {
-            lbl_ProcessState.Text = $"{_processState} working";
+            lbl_ProcessState.Text = $"{_processState} {Properties.Strings.ProcessStateWorking}";
             Cursor.Current = Cursors.WaitCursor;
         }
 
         private void InformUserProcessIsFinished()
         {
-            lbl_ProcessState.Text = $"{_processState} work finished";
+            lbl_ProcessState.Text = $"{_processState} {Properties.Strings.ProcessStateFinished}";
             Cursor.Current = Cursors.Default;
         }
 
         private void ShowError(string message)
         {
-            MessageBox.Show(message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(message, Properties.Strings.Err_AnErrorOccured, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void LoadUserPersonnalDatas()
@@ -210,6 +213,23 @@ namespace IHM
             IHM.Properties.Settings.Default.billiarSeparator = tb_billiardSeparator.Text;
             IHM.Properties.Settings.Default.SortTypeIndex = cb_SortVideosType.SelectedIndex;
             IHM.Properties.Settings.Default.Save();
+        }
+
+        private void Localization()
+        {
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+            this.lbl_MainYoutubeUrlPage.Text = Properties.Strings.IHM_Lbl_MainYoutubeUrlPage;
+            this.gb_ExcelOptions.Text = Properties.Strings.IHM_Gb_ExcelOptions;
+            this.lbl_FolderPath.Text = Properties.Strings.IHM_Lbl_FolderPath;
+            this.btn_changePath.Text = Properties.Strings.IHM_Btn_ChangePath;
+            this.lbl_DateFormat.Text = Properties.Strings.IHM_Lbl_DateFormat;
+            this.lbl_DurationFormat.Text = Properties.Strings.IHM_Lbl_DurationFormat;
+            this.lbl_ThousandSeparator.Text = Properties.Strings.IHM_Lbl_ThousandSeparator;
+            this.lbl_MillionSeparator.Text = Properties.Strings.IHM_Lbl_MillionSeparator;
+            this.lbl_BilliardSeparator.Text = Properties.Strings.IHM_Lbl_BilliardSeparator;
+            this.lbl_VideoSortingChoice.Text = Properties.Strings.IHM_Lbl_VideoSortingChoice;
+            this.lbl_ProcessState.Text = Properties.Strings.IHM_Lbl_StateOfProcess;
+            this.btn_Analyze.Text = Properties.Strings.IHM_Btn_Analyze;
         }
         #endregion
 
