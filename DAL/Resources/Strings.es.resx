@@ -112,69 +112,69 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Err_AnErrorOccured" xml:space="preserve">
-    <value>Une erreur est survenue</value>
+  <data name="Channel" xml:space="preserve">
+    <value>Canal</value>
   </data>
-  <data name="Err_OneUrlMinimum" xml:space="preserve">
-    <value>Vous devez renseigner au moins une url.</value>
+  <data name="Data_CreationDate" xml:space="preserve">
+    <value>Fecha de creación</value>
   </data>
-  <data name="Err_UserMustGiveOneFolderPath" xml:space="preserve">
-    <value>Vous devez renseigner un répertoire (pour exporter le résultat de vos recherches)</value>
+  <data name="Data_Description" xml:space="preserve">
+    <value>Descripción</value>
   </data>
-  <data name="IHM_Btn_Analyze" xml:space="preserve">
-    <value>Analyser !</value>
+  <data name="Data_Duration" xml:space="preserve">
+    <value>Duración</value>
   </data>
-  <data name="IHM_Btn_ChangePath" xml:space="preserve">
-    <value>Modifier le dossier cible</value>
+  <data name="Data_FacebookLink" xml:space="preserve">
+    <value>Enlace de Facebook</value>
   </data>
-  <data name="IHM_Gb_ExcelOptions" xml:space="preserve">
-    <value>Options du fichiers excel :</value>
+  <data name="Data_Name" xml:space="preserve">
+    <value>Apellido</value>
   </data>
-  <data name="IHM_Lbl_BilliardSeparator" xml:space="preserve">
-    <value>Séparateur de milliards :</value>
+  <data name="Data_NbNegativeFeedback" xml:space="preserve">
+    <value>Número de retroalimentaciones negativas</value>
   </data>
-  <data name="IHM_Lbl_DateFormat" xml:space="preserve">
-    <value>Format date :</value>
+  <data name="Data_NbPositiveFeedback" xml:space="preserve">
+    <value>Número de comentarios positivos</value>
   </data>
-  <data name="IHM_Lbl_DurationFormat" xml:space="preserve">
-    <value>Format durée :</value>
+  <data name="Data_NbSubscribers" xml:space="preserve">
+    <value>Numero de suscriptores</value>
   </data>
-  <data name="IHM_Lbl_FolderPath" xml:space="preserve">
-    <value>Dossier cible :</value>
+  <data name="Data_NbVideos" xml:space="preserve">
+    <value>Numero de videos</value>
   </data>
-  <data name="IHM_Lbl_MainYoutubeUrlPage" xml:space="preserve">
-    <value>Url youtube :</value>
+  <data name="Data_NbViews" xml:space="preserve">
+    <value>Numero de visitas</value>
   </data>
-  <data name="IHM_Lbl_MillionSeparator" xml:space="preserve">
-    <value>Séparateur de millions :</value>
+  <data name="Data_PlaylistIndex" xml:space="preserve">
+    <value>Índice playlist</value>
   </data>
-  <data name="IHM_Lbl_StateOfProcess" xml:space="preserve">
-    <value>Etat du processus : en attente d'une action de l'utilisateur</value>
+  <data name="Data_SubscriptionDate" xml:space="preserve">
+    <value>Fecha de suscripción</value>
   </data>
-  <data name="IHM_Lbl_ThousandSeparator" xml:space="preserve">
-    <value>Séparateur de milliers :</value>
+  <data name="Data_TwitterLink" xml:space="preserve">
+    <value>Enlace de Twitter</value>
   </data>
-  <data name="IHM_Lbl_VideoSortingChoice" xml:space="preserve">
-    <value>Trier les vidéos par :</value>
+  <data name="Playlist" xml:space="preserve">
+    <value>Playlist</value>
   </data>
-  <data name="ProcessState" xml:space="preserve">
-    <value>Etat du processus :</value>
+  <data name="Playlists" xml:space="preserve">
+    <value>Playlists</value>
   </data>
-  <data name="ProcessStateFinished" xml:space="preserve">
-    <value>travail terminé</value>
+  <data name="Presentation" xml:space="preserve">
+    <value>Presentación</value>
   </data>
-  <data name="ProcessStateWorking" xml:space="preserve">
-    <value>en train de travailler</value>
+  <data name="Url" xml:space="preserve">
+    <value>Url</value>
   </data>
-  <data name="SuccessMessage" xml:space="preserve">
-    <value>Les données ont été enrégistré dans le chemin suivant : {0} . Travail effectué en {1}.</value>
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
   </data>
-  <data name="SuccessTitle" xml:space="preserve">
-    <value>Succès</value>
+  <data name="Videos" xml:space="preserve">
+    <value>Videos</value>
   </data>
 </root>

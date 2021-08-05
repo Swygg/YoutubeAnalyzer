@@ -118,63 +118,63 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Err_AnErrorOccured" xml:space="preserve">
-    <value>Une erreur est survenue</value>
+    <value>Se ha producido un error</value>
   </data>
   <data name="Err_OneUrlMinimum" xml:space="preserve">
-    <value>Vous devez renseigner au moins une url.</value>
+    <value>Debes ingresar al menos una URL.</value>
   </data>
   <data name="Err_UserMustGiveOneFolderPath" xml:space="preserve">
-    <value>Vous devez renseigner un répertoire (pour exporter le résultat de vos recherches)</value>
+    <value>Deben ingresar a un directorio (para exportar los resultados de sus búsquedas)</value>
   </data>
   <data name="IHM_Btn_Analyze" xml:space="preserve">
-    <value>Analyser !</value>
+    <value>Analizar !</value>
   </data>
   <data name="IHM_Btn_ChangePath" xml:space="preserve">
-    <value>Modifier le dossier cible</value>
+    <value>Cambiar carpeta de destino</value>
   </data>
   <data name="IHM_Gb_ExcelOptions" xml:space="preserve">
-    <value>Options du fichiers excel :</value>
+    <value>Opciones de archivo de Excel:</value>
   </data>
   <data name="IHM_Lbl_BilliardSeparator" xml:space="preserve">
-    <value>Séparateur de milliards :</value>
+    <value>Separador de miles de millones:</value>
   </data>
   <data name="IHM_Lbl_DateFormat" xml:space="preserve">
-    <value>Format date :</value>
+    <value>Formato de fecha:</value>
   </data>
   <data name="IHM_Lbl_DurationFormat" xml:space="preserve">
-    <value>Format durée :</value>
+    <value>Formato de duración:</value>
   </data>
   <data name="IHM_Lbl_FolderPath" xml:space="preserve">
-    <value>Dossier cible :</value>
+    <value>Carpeta de destino:</value>
   </data>
   <data name="IHM_Lbl_MainYoutubeUrlPage" xml:space="preserve">
     <value>Url youtube :</value>
   </data>
   <data name="IHM_Lbl_MillionSeparator" xml:space="preserve">
-    <value>Séparateur de millions :</value>
+    <value>Separador de millones:</value>
   </data>
   <data name="IHM_Lbl_StateOfProcess" xml:space="preserve">
-    <value>Etat du processus : en attente d'une action de l'utilisateur</value>
+    <value>Estado del proceso: esperando la acción del usuario</value>
   </data>
   <data name="IHM_Lbl_ThousandSeparator" xml:space="preserve">
-    <value>Séparateur de milliers :</value>
+    <value>Separador de miles:</value>
   </data>
   <data name="IHM_Lbl_VideoSortingChoice" xml:space="preserve">
-    <value>Trier les vidéos par :</value>
+    <value>Ordenar videos por:</value>
   </data>
   <data name="ProcessState" xml:space="preserve">
-    <value>Etat du processus :</value>
+    <value>Estado del proceso:</value>
   </data>
   <data name="ProcessStateFinished" xml:space="preserve">
-    <value>travail terminé</value>
+    <value>trabajo hecho</value>
   </data>
   <data name="ProcessStateWorking" xml:space="preserve">
-    <value>en train de travailler</value>
+    <value>trabajando</value>
   </data>
   <data name="SuccessMessage" xml:space="preserve">
-    <value>Les données ont été enrégistré dans le chemin suivant : {0} . Travail effectué en {1}.</value>
+    <value>Los datos se han guardado en la siguiente ruta: {0}. Trabajo realizado en {1}.</value>
   </data>
   <data name="SuccessTitle" xml:space="preserve">
-    <value>Succès</value>
+    <value>Éxito</value>
   </data>
 </root>

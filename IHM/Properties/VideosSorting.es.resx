@@ -117,64 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Err_AnErrorOccured" xml:space="preserve">
-    <value>Une erreur est survenue</value>
+  <data name="DateCreationAsc" xml:space="preserve">
+    <value>Fecha de creación (ascendente)</value>
   </data>
-  <data name="Err_OneUrlMinimum" xml:space="preserve">
-    <value>Vous devez renseigner au moins une url.</value>
+  <data name="DateCreationDesc" xml:space="preserve">
+    <value>Fecha de creación (descendente)</value>
   </data>
-  <data name="Err_UserMustGiveOneFolderPath" xml:space="preserve">
-    <value>Vous devez renseigner un répertoire (pour exporter le résultat de vos recherches)</value>
+  <data name="DurationAsc" xml:space="preserve">
+    <value>Duración (ascendente)</value>
   </data>
-  <data name="IHM_Btn_Analyze" xml:space="preserve">
-    <value>Analyser !</value>
+  <data name="DurationDesc" xml:space="preserve">
+    <value>Duración (descendente)</value>
   </data>
-  <data name="IHM_Btn_ChangePath" xml:space="preserve">
-    <value>Modifier le dossier cible</value>
+  <data name="NameAsc" xml:space="preserve">
+    <value>Nombre (ascendente)</value>
   </data>
-  <data name="IHM_Gb_ExcelOptions" xml:space="preserve">
-    <value>Options du fichiers excel :</value>
+  <data name="NameDesc" xml:space="preserve">
+    <value>Nombre (descendente)</value>
   </data>
-  <data name="IHM_Lbl_BilliardSeparator" xml:space="preserve">
-    <value>Séparateur de milliards :</value>
+  <data name="NotSorted" xml:space="preserve">
+    <value>No ordenado</value>
   </data>
-  <data name="IHM_Lbl_DateFormat" xml:space="preserve">
-    <value>Format date :</value>
+  <data name="NumberNegativesFeedbackAsc" xml:space="preserve">
+    <value>Número de retroalimentaciones negativas (ascendente)</value>
   </data>
-  <data name="IHM_Lbl_DurationFormat" xml:space="preserve">
-    <value>Format durée :</value>
+  <data name="NumberNegativesFeedbackDesc" xml:space="preserve">
+    <value>Número de retroalimentaciones negativas (descendente)</value>
   </data>
-  <data name="IHM_Lbl_FolderPath" xml:space="preserve">
-    <value>Dossier cible :</value>
+  <data name="NumberPositivesFeedbackAsc" xml:space="preserve">
+    <value>Número de retroalimentaciones positivas (ascendente)</value>
   </data>
-  <data name="IHM_Lbl_MainYoutubeUrlPage" xml:space="preserve">
-    <value>Url youtube :</value>
+  <data name="NumberPositivesFeedbackDesc" xml:space="preserve">
+    <value>Número de retroalimentaciones positivas (descendente)</value>
   </data>
-  <data name="IHM_Lbl_MillionSeparator" xml:space="preserve">
-    <value>Séparateur de millions :</value>
+  <data name="NumberViewsAsc" xml:space="preserve">
+    <value>Número de visualizaciones (ascendente)</value>
   </data>
-  <data name="IHM_Lbl_StateOfProcess" xml:space="preserve">
-    <value>Etat du processus : en attente d'une action de l'utilisateur</value>
-  </data>
-  <data name="IHM_Lbl_ThousandSeparator" xml:space="preserve">
-    <value>Séparateur de milliers :</value>
-  </data>
-  <data name="IHM_Lbl_VideoSortingChoice" xml:space="preserve">
-    <value>Trier les vidéos par :</value>
-  </data>
-  <data name="ProcessState" xml:space="preserve">
-    <value>Etat du processus :</value>
-  </data>
-  <data name="ProcessStateFinished" xml:space="preserve">
-    <value>travail terminé</value>
-  </data>
-  <data name="ProcessStateWorking" xml:space="preserve">
-    <value>en train de travailler</value>
-  </data>
-  <data name="SuccessMessage" xml:space="preserve">
-    <value>Les données ont été enrégistré dans le chemin suivant : {0} . Travail effectué en {1}.</value>
-  </data>
-  <data name="SuccessTitle" xml:space="preserve">
-    <value>Succès</value>
+  <data name="NumberViewsDesc" xml:space="preserve">
+    <value>Número de vistas (descendente)</value>
   </data>
 </root>
