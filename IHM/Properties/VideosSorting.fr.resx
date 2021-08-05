@@ -112,69 +112,48 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Channel" xml:space="preserve">
-    <value>Channel</value>
+  <data name="DateCreationAsc" xml:space="preserve">
+    <value>Date de création (croissant)</value>
   </data>
-  <data name="Data_CreationDate" xml:space="preserve">
-    <value>Creation date</value>
+  <data name="DateCreationDesc" xml:space="preserve">
+    <value>Date de création (décroissant)</value>
   </data>
-  <data name="Data_Description" xml:space="preserve">
-    <value>Description</value>
+  <data name="DurationAsc" xml:space="preserve">
+    <value>Durée (croissant)</value>
   </data>
-  <data name="Data_Duration" xml:space="preserve">
-    <value>Duration</value>
+  <data name="DurationDesc" xml:space="preserve">
+    <value>Durée (décroissant)</value>
   </data>
-  <data name="Data_FacebookLink" xml:space="preserve">
-    <value>Facebook link</value>
+  <data name="NameAsc" xml:space="preserve">
+    <value>Nom (croissant)</value>
   </data>
-  <data name="Data_Name" xml:space="preserve">
-    <value>Name</value>
+  <data name="NameDesc" xml:space="preserve">
+    <value>Nom (décroissant)</value>
   </data>
-  <data name="Data_NbNegativeFeedback" xml:space="preserve">
-    <value>Nb negative feedback</value>
+  <data name="NotSorted" xml:space="preserve">
+    <value>Non trié</value>
   </data>
-  <data name="Data_NbPositiveFeedback" xml:space="preserve">
-    <value>Nb positive feedback</value>
+  <data name="NumberNegativesFeedbackAsc" xml:space="preserve">
+    <value>Nombre de feedback négatifs (croissant)</value>
   </data>
-  <data name="Data_NbSubscribers" xml:space="preserve">
-    <value>Nb subscribers</value>
+  <data name="NumberNegativesFeedbackDesc" xml:space="preserve">
+    <value>Nombre de feedback négatifs (décroissant)</value>
   </data>
-  <data name="Data_NbVideos" xml:space="preserve">
-    <value>Nb videos</value>
+  <data name="NumberPositivesFeedbackAsc" xml:space="preserve">
+    <value>Nombre de feedback positifs (croisssant)</value>
   </data>
-  <data name="Data_NbViews" xml:space="preserve">
-    <value>Nb views</value>
+  <data name="NumberPositivesFeedbackDesc" xml:space="preserve">
+    <value>Nombre de feedback positifs (décroissant)</value>
   </data>
-  <data name="Data_PlaylistIndex" xml:space="preserve">
-    <value>Playlist index</value>
+  <data name="NumberViewsAsc" xml:space="preserve">
+    <value>Nombre de vues (croissant)</value>
   </data>
-  <data name="Data_SubscriptionDate" xml:space="preserve">
-    <value>Subscription date</value>
-  </data>
-  <data name="Data_TwitterLink" xml:space="preserve">
-    <value>Twitter link</value>
-  </data>
-  <data name="Playlist" xml:space="preserve">
-    <value>Playlist</value>
-  </data>
-  <data name="Playlists" xml:space="preserve">
-    <value>Playlists</value>
-  </data>
-  <data name="Presentation" xml:space="preserve">
-    <value>Presentation</value>
-  </data>
-  <data name="Url" xml:space="preserve">
-    <value>Url</value>
-  </data>
-  <data name="Video" xml:space="preserve">
-    <value>Video</value>
-  </data>
-  <data name="Videos" xml:space="preserve">
-    <value>Videos</value>
+  <data name="NumberViewsDesc" xml:space="preserve">
+    <value>Nombre de vues (décroissant)</value>
   </data>
 </root>

@@ -217,7 +217,7 @@ namespace IHM
 
         private void Localization()
         {
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+            //Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
             this.lbl_MainYoutubeUrlPage.Text = Properties.Strings.IHM_Lbl_MainYoutubeUrlPage;
             this.gb_ExcelOptions.Text = Properties.Strings.IHM_Gb_ExcelOptions;
             this.lbl_FolderPath.Text = Properties.Strings.IHM_Lbl_FolderPath;
@@ -230,6 +230,20 @@ namespace IHM
             this.lbl_VideoSortingChoice.Text = Properties.Strings.IHM_Lbl_VideoSortingChoice;
             this.lbl_ProcessState.Text = Properties.Strings.IHM_Lbl_StateOfProcess;
             this.btn_Analyze.Text = Properties.Strings.IHM_Btn_Analyze;
+
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.NotSorted);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.DurationAsc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.DurationDesc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.DateCreationAsc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.DateCreationDesc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.NumberViewsAsc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.NumberViewsDesc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.NumberPositivesFeedbackAsc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.NumberPositivesFeedbackDesc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.NumberNegativesFeedbackAsc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.NumberNegativesFeedbackDesc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.NameAsc);
+            cb_SortVideosType.Items.Add(Properties.VideosSorting.NameDesc);
         }
         #endregion
 

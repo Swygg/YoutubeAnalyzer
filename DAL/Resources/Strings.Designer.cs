@@ -70,11 +70,29 @@ namespace DAL.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Creation date.
+        /// </summary>
+        internal static string Data_CreationDate {
+            get {
+                return ResourceManager.GetString("Data_CreationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Description.
         /// </summary>
         internal static string Data_Description {
             get {
                 return ResourceManager.GetString("Data_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Duration.
+        /// </summary>
+        internal static string Data_Duration {
+            get {
+                return ResourceManager.GetString("Data_Duration", resourceCulture);
             }
         }
         
@@ -93,6 +111,24 @@ namespace DAL.Resources {
         internal static string Data_Name {
             get {
                 return ResourceManager.GetString("Data_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nb negative feedback.
+        /// </summary>
+        internal static string Data_NbNegativeFeedback {
+            get {
+                return ResourceManager.GetString("Data_NbNegativeFeedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nb positive feedback.
+        /// </summary>
+        internal static string Data_NbPositiveFeedback {
+            get {
+                return ResourceManager.GetString("Data_NbPositiveFeedback", resourceCulture);
             }
         }
         

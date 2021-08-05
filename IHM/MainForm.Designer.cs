@@ -199,20 +199,6 @@ namespace IHM
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_SortVideosType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_SortVideosType.FormattingEnabled = true;
-            this.cb_SortVideosType.Items.AddRange(new object[] {
-            "Not Sorted",
-            "Duration (asc)",
-            "Duration (desc)",
-            "Date creation (asc)",
-            "Date creation (desc)",
-            "Number views (asc)",
-            "Number views (desc)",
-            "Number positives feedback (asc)",
-            "Number positives feedback (desc)",
-            "Number negatives feedback (asc)",
-            "Number negatives feedback (desc)",
-            "Name (asc)",
-            "Name (desc)"});
             this.cb_SortVideosType.Location = new System.Drawing.Point(146, 142);
             this.cb_SortVideosType.Name = "cb_SortVideosType";
             this.cb_SortVideosType.Size = new System.Drawing.Size(472, 23);

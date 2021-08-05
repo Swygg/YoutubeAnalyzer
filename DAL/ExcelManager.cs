@@ -53,7 +53,7 @@ namespace DAL
             };
 
             workbook.Worksheets.Add(GetPresentationWorksheet(channel));
-            workbook.Worksheets.Add(GetVideosWorksheet(channel.Videos));
+            workbook.Worksheets.Add(GetVideosWorksheet(channel.Videos, Resources.Strings.Videos));
             workbook.Worksheets.Add(GetPlaylistsWorksheet(channel.Playlists));
             for (int indexPlaylist = 0; indexPlaylist < channel.Playlists.Count; indexPlaylist++)
             {
@@ -192,7 +192,7 @@ namespace DAL
             return worksheet;
         }
 
-        private static Worksheet GetVideosWorksheet(List<YoutubeVideo> videos, string title = "Videos")
+        private static Worksheet GetVideosWorksheet(List<YoutubeVideo> videos, string title)
         {
             var worksheet = new Worksheet();
             worksheet.Name = title;
@@ -218,14 +218,14 @@ namespace DAL
             };
 
             // COLUMNS NAME
-            cells.Add(new Cell(rowIndex, NAME, "Name", titleStyle));
-            cells.Add(new Cell(rowIndex, DURATION, "Duration", titleStyle));
-            cells.Add(new Cell(rowIndex, CREATIONDATE, "Creation date", titleStyle));
-            cells.Add(new Cell(rowIndex, NBVIEW, "Nb views", titleStyle));
-            cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, "Nb positive feedback", titleStyle));
-            cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, "Nb negative feedback", titleStyle));
-            cells.Add(new Cell(rowIndex, URL, "Url", titleStyle));
-            cells.Add(new Cell(rowIndex, DESCRIPTION, "Description", titleStyle));
+            cells.Add(new Cell(rowIndex, NAME, Resources.Strings.Data_Name, titleStyle));
+            cells.Add(new Cell(rowIndex, DURATION, Resources.Strings.Data_Duration, titleStyle));
+            cells.Add(new Cell(rowIndex, CREATIONDATE, Resources.Strings.Data_CreationDate, titleStyle));
+            cells.Add(new Cell(rowIndex, NBVIEW, Resources.Strings.Data_NbViews, titleStyle));
+            cells.Add(new Cell(rowIndex, NBPOSITIVEFEEBACK, Resources.Strings.Data_NbPositiveFeedback, titleStyle));
+            cells.Add(new Cell(rowIndex, NBNEGATIVEFEEBACK, Resources.Strings.Data_NbNegativeFeedback, titleStyle));
+            cells.Add(new Cell(rowIndex, URL, Resources.Strings.Url, titleStyle)); ;
+            cells.Add(new Cell(rowIndex, DESCRIPTION, Resources.Strings.Data_Description, titleStyle));
 
             foreach (var video in videos)
             {

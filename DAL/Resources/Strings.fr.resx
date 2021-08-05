@@ -120,14 +120,26 @@
   <data name="Channel" xml:space="preserve">
     <value>Chaîne</value>
   </data>
+  <data name="Data_CreationDate" xml:space="preserve">
+    <value>Date de création</value>
+  </data>
   <data name="Data_Description" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="Data_Duration" xml:space="preserve">
+    <value>Durée</value>
   </data>
   <data name="Data_FacebookLink" xml:space="preserve">
     <value>Lien Facebook</value>
   </data>
   <data name="Data_Name" xml:space="preserve">
     <value>Nom</value>
+  </data>
+  <data name="Data_NbNegativeFeedback" xml:space="preserve">
+    <value>Nb feedback négatifs</value>
+  </data>
+  <data name="Data_NbPositiveFeedback" xml:space="preserve">
+    <value>Nb feedback positifs</value>
   </data>
   <data name="Data_NbSubscribers" xml:space="preserve">
     <value>Nb abonnés</value>
