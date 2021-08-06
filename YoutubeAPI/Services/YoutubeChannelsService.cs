@@ -181,7 +181,11 @@ namespace YoutubeAPI.Services
             string html = string.Empty;
             try
             {
-                html = HtmlHelper.GetHtmlFromUrl(url);
+                //html = HtmlHelper.GetHtmlFromUrl(url);
+
+                Scrapper scrappy = new Scrapper();
+                html = scrappy.GetHtmlFromUrl(url);
+                //html = HtmlHelper.GetHtmlFromUrl(url);
             }
             catch (Exception)
             {
