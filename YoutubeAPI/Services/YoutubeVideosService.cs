@@ -4,7 +4,7 @@ using YoutubeAPI.Models;
 
 namespace YoutubeAPI.Services
 {
-    public class YoutubeVideosService
+    internal class YoutubeVideosService
     {
         public YoutubeVideo GetVideoFromUrl(string url)
         {

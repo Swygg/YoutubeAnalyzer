@@ -135,6 +135,9 @@
   <data name="IHM_Gb_ExcelOptions" xml:space="preserve">
     <value>Opciones de archivo de Excel:</value>
   </data>
+  <data name="IHM_Gb_YoutubeOptions" xml:space="preserve">
+    <value>Youtube API opciones :</value>
+  </data>
   <data name="IHM_Lbl_BilliardSeparator" xml:space="preserve">
     <value>Separador de miles de millones:</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="IHM_Lbl_VideoSortingChoice" xml:space="preserve">
     <value>Ordenar videos por:</value>
+  </data>
+  <data name="IHM_Lbl_YoutubeAPIKey" xml:space="preserve">
+    <value>Youtube API llave :</value>
   </data>
   <data name="ProcessState" xml:space="preserve">
     <value>Estado del proceso:</value>

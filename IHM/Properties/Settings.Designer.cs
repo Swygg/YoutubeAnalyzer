@@ -106,5 +106,17 @@ namespace IHM.Properties {
                 this["SortTypeIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string YoutubeAPIKey {
+            get {
+                return ((string)(this["YoutubeAPIKey"]));
+            }
+            set {
+                this["YoutubeAPIKey"] = value;
+            }
+        }
     }
 }

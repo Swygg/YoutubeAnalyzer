@@ -5,8 +5,16 @@ using YoutubeAPI.Models;
 
 namespace YoutubeAPI.Services
 {
-    public class YoutubePlaylistsService
+    internal class YoutubePlaylistsService
     {
+        private YoutubeAPIService _youtubeAPIService = null;
+
+        public YoutubePlaylistsService(string youtubeAPIKey)
+        {
+            if (!string.IsNullOrEmpty(youtubeAPIKey))
+                _youtubeAPIService = new YoutubeAPIService(youtubeAPIKey);
+        }
+
         public YoutubePlaylist GetYoutubePlaylist(string url)
         {
             string html = string.Empty;

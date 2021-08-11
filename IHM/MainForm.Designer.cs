@@ -49,13 +49,17 @@ namespace IHM
             this.tb_thousandSeparator = new System.Windows.Forms.TextBox();
             this.lbl_ThousandSeparator = new System.Windows.Forms.Label();
             this.lbl_ProcessState = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblYoutubeAPIKey = new System.Windows.Forms.Label();
+            this.tb_YoutubeApiKey = new System.Windows.Forms.TextBox();
             this.gb_ExcelOptions.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_Analyze
             // 
             this.btn_Analyze.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Analyze.Location = new System.Drawing.Point(533, 266);
+            this.btn_Analyze.Location = new System.Drawing.Point(533, 361);
             this.btn_Analyze.Name = "btn_Analyze";
             this.btn_Analyze.Size = new System.Drawing.Size(112, 23);
             this.btn_Analyze.TabIndex = 99;
@@ -71,8 +75,8 @@ namespace IHM
             this.tb_urls.Location = new System.Drawing.Point(158, 6);
             this.tb_urls.Multiline = true;
             this.tb_urls.Name = "tb_urls";
-            this.tb_urls.Size = new System.Drawing.Size(487, 73);
-            this.tb_urls.TabIndex = 1;
+            this.tb_urls.Size = new System.Drawing.Size(487, 100);
+            this.tb_urls.TabIndex = 0;
             this.tb_urls.Text = "https://www.youtube.com/user/LesTutosdeHuito";
             // 
             // lbl_MainYoutubeUrlPage
@@ -186,7 +190,7 @@ namespace IHM
             this.gb_ExcelOptions.Controls.Add(this.btn_changePath);
             this.gb_ExcelOptions.Controls.Add(this.cb_DateFormat);
             this.gb_ExcelOptions.Controls.Add(this.lbl_DateFormat);
-            this.gb_ExcelOptions.Location = new System.Drawing.Point(12, 85);
+            this.gb_ExcelOptions.Location = new System.Drawing.Point(12, 180);
             this.gb_ExcelOptions.Name = "gb_ExcelOptions";
             this.gb_ExcelOptions.Size = new System.Drawing.Size(633, 175);
             this.gb_ExcelOptions.TabIndex = 102;
@@ -268,17 +272,49 @@ namespace IHM
             // 
             this.lbl_ProcessState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_ProcessState.AutoSize = true;
-            this.lbl_ProcessState.Location = new System.Drawing.Point(18, 274);
+            this.lbl_ProcessState.Location = new System.Drawing.Point(18, 369);
             this.lbl_ProcessState.Name = "lbl_ProcessState";
             this.lbl_ProcessState.Size = new System.Drawing.Size(217, 15);
             this.lbl_ProcessState.TabIndex = 103;
             this.lbl_ProcessState.Text = "State of process : waiting for user action";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.lblYoutubeAPIKey);
+            this.groupBox1.Controls.Add(this.tb_YoutubeApiKey);
+            this.groupBox1.Location = new System.Drawing.Point(12, 120);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(633, 54);
+            this.groupBox1.TabIndex = 104;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Youtube API options :";
+            // 
+            // lblYoutubeAPIKey
+            // 
+            this.lblYoutubeAPIKey.AutoSize = true;
+            this.lblYoutubeAPIKey.Location = new System.Drawing.Point(6, 26);
+            this.lblYoutubeAPIKey.Name = "lblYoutubeAPIKey";
+            this.lblYoutubeAPIKey.Size = new System.Drawing.Size(100, 15);
+            this.lblYoutubeAPIKey.TabIndex = 1;
+            this.lblYoutubeAPIKey.Text = "Youtube API Key :";
+            // 
+            // tb_YoutubeApiKey
+            // 
+            this.tb_YoutubeApiKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_YoutubeApiKey.Location = new System.Drawing.Point(146, 23);
+            this.tb_YoutubeApiKey.Name = "tb_YoutubeApiKey";
+            this.tb_YoutubeApiKey.Size = new System.Drawing.Size(472, 23);
+            this.tb_YoutubeApiKey.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(657, 301);
+            this.ClientSize = new System.Drawing.Size(657, 396);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lbl_ProcessState);
             this.Controls.Add(this.gb_ExcelOptions);
             this.Controls.Add(this.lbl_MainYoutubeUrlPage);
@@ -292,6 +328,8 @@ namespace IHM
             this.Text = "Youtube Analyzer (by Svik)";
             this.gb_ExcelOptions.ResumeLayout(false);
             this.gb_ExcelOptions.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,6 +357,9 @@ namespace IHM
         private System.Windows.Forms.Label lbl_ProcessState;
         private System.Windows.Forms.ComboBox cb_SortVideosType;
         private System.Windows.Forms.Label lbl_VideoSortingChoice;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblYoutubeAPIKey;
+        private System.Windows.Forms.TextBox tb_YoutubeApiKey;
     }
 }
 

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.54.0.2378" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Resources\Strings.Designer.cs">
       <Generator></Generator>
       <DesignTime>True</DesignTime>

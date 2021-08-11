@@ -5,8 +5,18 @@ using YoutubeAPI.Models;
 
 namespace YoutubeAPI.Services
 {
-    public class YoutubeChannelsService
+    internal class YoutubeChannelsService
     {
+        private YoutubeAPIService _youtubeAPIService = null;
+        private string _youtubeAPIKey;
+
+        public YoutubeChannelsService(string youtubeAPIKey)
+        {
+            _youtubeAPIKey = youtubeAPIKey;
+            if (!string.IsNullOrEmpty(youtubeAPIKey))
+                _youtubeAPIService = new YoutubeAPIService(youtubeAPIKey);
+        }
+
         public YoutubeChannel GetChannelFromUrl(string url)
         {
             var aboutPageUrl = GetYoutubeAboutAccountUrl(url);
@@ -226,7 +236,7 @@ namespace YoutubeAPI.Services
         {
             var links = GetPlayListLinks(url);
             var playlists = new List<YoutubePlaylist>();
-            var youtubePlaylistService = new YoutubePlaylistsService();
+            var youtubePlaylistService = new YoutubePlaylistsService(_youtubeAPIKey);
             foreach (var link in links)
             {
                 playlists.Add(youtubePlaylistService.GetYoutubePlaylist(link));

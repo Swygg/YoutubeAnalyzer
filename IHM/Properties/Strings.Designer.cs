@@ -115,6 +115,15 @@ namespace IHM.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Youtube API options :.
+        /// </summary>
+        internal static string IHM_Gb_YoutubeOptions {
+            get {
+                return ResourceManager.GetString("IHM_Gb_YoutubeOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Billiard separator :.
         /// </summary>
         internal static string IHM_Lbl_BilliardSeparator {
@@ -192,6 +201,15 @@ namespace IHM.Properties {
         internal static string IHM_Lbl_VideoSortingChoice {
             get {
                 return ResourceManager.GetString("IHM_Lbl_VideoSortingChoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Youtube API Key :.
+        /// </summary>
+        internal static string IHM_Lbl_YoutubeAPIKey {
+            get {
+                return ResourceManager.GetString("IHM_Lbl_YoutubeAPIKey", resourceCulture);
             }
         }
         

@@ -7,12 +7,18 @@ namespace YoutubeAPI.Services
         private readonly YoutubeChannelsService YoutubeChannelsService;
         private readonly YoutubeVideosService YoutubeVideosService;
         private readonly YoutubePlaylistsService YoutubePlaylistsService;
-        public YoutubeSearchService()
+
+        private string _youtubeAPIKey;
+
+        public YoutubeSearchService(string youtubeAPIKey)
         {
-            YoutubeChannelsService = new YoutubeChannelsService();
+            _youtubeAPIKey = youtubeAPIKey;
+            YoutubeChannelsService = new YoutubeChannelsService(_youtubeAPIKey);
+            YoutubePlaylistsService = new YoutubePlaylistsService(_youtubeAPIKey);
             YoutubeVideosService = new YoutubeVideosService();
-            YoutubePlaylistsService = new YoutubePlaylistsService();
         }
+
+
 
         public YoutubeResponse GetAnswerFromLink(string url)
         {

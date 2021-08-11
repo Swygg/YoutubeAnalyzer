@@ -1,12 +1,10 @@
-﻿using System;
+﻿using DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using YoutubeAPI.Models;
 using YoutubeAPI.Services;
-using DAL.Models;
-using System.Threading;
-using System.Globalization;
 
 namespace IHM
 {
@@ -56,7 +54,7 @@ namespace IHM
             var startProcess = DateTime.Now;
             var youtubeResponses = new List<YoutubeResponse>();
             var links = GetLinks();
-            var youtubeSearchService = new YoutubeSearchService();
+            var youtubeSearchService = new YoutubeSearchService(tb_YoutubeApiKey.Text);
 
 
 
@@ -201,6 +199,7 @@ namespace IHM
             tb_millionsSeparator.Text = IHM.Properties.Settings.Default.millionsSepartor;
             tb_billiardSeparator.Text = IHM.Properties.Settings.Default.billiarSeparator;
             cb_SortVideosType.SelectedIndex = IHM.Properties.Settings.Default.SortTypeIndex;
+            tb_YoutubeApiKey.Text = IHM.Properties.Settings.Default.YoutubeAPIKey;
         }
 
         private void SaveUserPersonnalDatas()
@@ -212,6 +211,7 @@ namespace IHM
             IHM.Properties.Settings.Default.millionsSepartor = tb_millionsSeparator.Text;
             IHM.Properties.Settings.Default.billiarSeparator = tb_billiardSeparator.Text;
             IHM.Properties.Settings.Default.SortTypeIndex = cb_SortVideosType.SelectedIndex;
+            IHM.Properties.Settings.Default.YoutubeAPIKey = tb_YoutubeApiKey.Text;
             IHM.Properties.Settings.Default.Save();
         }
 
@@ -269,33 +269,5 @@ namespace IHM
             SaveUserPersonnalDatas();
         }
         #endregion
-
-
-
-        #region FOR MANUAL TESTS ONLY
-        private void SimulateVideoSearch()
-        {
-            string videoUrl = "https://www.youtube.com/watch?v=7I_OMwCJN5E";
-            var videosService = new YoutubeVideosService();
-            var maybeVideo = videosService.GetVideoFromUrl(videoUrl);
-        }
-
-        private void SimulatePlaylistSearch()
-        {
-            string url = "https://www.youtube.com/watch?v=RcLxoPz1dDY&list=PLmntgUDCubzjE-DaiCrVXv9LfsJU61aJ7";
-            var playlistService = new YoutubePlaylistsService();
-            var maybePlaylist = playlistService.GetYoutubePlaylist(url);
-        }
-
-        private void SimulateChannelSearch()
-        {
-            string channelUrl = "https://www.youtube.com/user/LesTutosdeHuito";
-            //string channelUrl = "https://www.youtube.com/c/metallica/about";
-            var channelsService = new YoutubeChannelsService();
-            var maybeChannel = channelsService.GetChannelFromUrl(channelUrl);
-        }
-        #endregion
-
-
     }
 }
