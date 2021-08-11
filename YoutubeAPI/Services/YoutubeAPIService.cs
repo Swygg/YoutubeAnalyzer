@@ -1,6 +1,7 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using System.Collections.Generic;
+using YoutubeAPI.Models;
 
 namespace YoutubeAPI.Services
 {
@@ -8,6 +9,7 @@ namespace YoutubeAPI.Services
     {
         private YouTubeService _youtubeService;
         private const string _applicationName = "YoutubeAnalyzer";
+        private const string _youtubeBaseUrl = "https://www.youtube.com/watch?v=";
 
         public YoutubeAPIService(string apiKey) : this(apiKey, _applicationName)
         {
@@ -37,6 +39,15 @@ namespace YoutubeAPI.Services
             return playlists;
         }
 
+        public string GetPlaylistName(string playlistId)
+        {
+            var playListRequest = _youtubeService.Playlists.List("snippet");
+            playListRequest.Id = playlistId;
+            playListRequest.MaxResults = 1;
+            var playListResult = playListRequest.Execute();
+            return playListResult.Items[0].Snippet.Title;
+        }
+
         public List<string> GetUrlVideosFromPlaylist(string playlistId, string nextPageToken = null)
         {
             var playListItemsListRequest = _youtubeService.PlaylistItems.List("snippet");
@@ -49,7 +60,7 @@ namespace YoutubeAPI.Services
             var result = new List<string>();
             foreach (var item in playListItemsListResults.Items)
             {
-                result.Add(item.Id);
+                result.Add(_youtubeBaseUrl + item.Snippet.ResourceId.VideoId);
             }
             if (!string.IsNullOrEmpty(playListItemsListResults.NextPageToken))
             {

@@ -246,6 +246,9 @@ namespace YoutubeAPI.Services
 
         private List<string> GetPlayListLinks(string url)
         {
+            if (_youtubeAPIService != null)
+                return _youtubeAPIService.GetPlayLists(GetId(url));
+
             url = GetYoutubePlayListAccountUrl(url);
             if (url == null)
                 return null;
@@ -273,7 +276,7 @@ namespace YoutubeAPI.Services
                 {
                     var startIndex = html.Substring(0, middleIndex).LastIndexOf(start) + start.Length;
                     var stopIndex = html.Substring(middleIndex).IndexOf(stop);
-                    var partUrl = html.Substring(startIndex, (middleIndex - startIndex) + stopIndex).Replace("\\u0026","&");
+                    var partUrl = html.Substring(startIndex, (middleIndex - startIndex) + stopIndex).Replace("\\u0026", "&");
                     var newUrl = $"https://www.youtube.com{partUrl}";
                     if (!links.Contains(newUrl))
                     {
@@ -281,7 +284,7 @@ namespace YoutubeAPI.Services
                     }
                     html = html.Substring(startIndex + partUrl.Length);
                 }
-            } while (middleIndex>-1);
+            } while (middleIndex > -1);
 
             return links;
         }
@@ -299,6 +302,15 @@ namespace YoutubeAPI.Services
                 return maybePage;
             }
             return null;
+        }
+
+        private string GetId(string url)
+        {
+            var world = "channel/";
+            var index = url.IndexOf(world);
+            if (index == -1)
+                throw new Exception();
+            return url.Substring(index + world.Length);
         }
     }
 }

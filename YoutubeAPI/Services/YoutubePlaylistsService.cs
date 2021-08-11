@@ -17,19 +17,33 @@ namespace YoutubeAPI.Services
 
         public YoutubePlaylist GetYoutubePlaylist(string url)
         {
-            string html = string.Empty;
-            try
+            YoutubePlaylist playlist = null;
+            if (_youtubeAPIService == null)
             {
-                html = HtmlHelper.GetHtmlFromUrl(url);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                string html = string.Empty;
+                try
+                {
+                    html = HtmlHelper.GetHtmlFromUrl(url);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
 
-            var playlist = ScrapHtml(html);
-            playlist.Url = url;
-            playlist.Videos = GetVideos(html);
+                playlist = ScrapHtml(html);
+                playlist.Url = url;
+                playlist.Videos = GetVideosByHtml(html);
+            }
+            else
+            {
+                var id = GetIdPlaylist(url);
+                playlist = new YoutubePlaylist()
+                {
+                    Name = _youtubeAPIService.GetPlaylistName(id),
+                    Url = url,
+                    Videos = GetVideosByYoutubeAPI(id)
+                };
+            }
             return playlist;
         }
 
@@ -49,19 +63,30 @@ namespace YoutubeAPI.Services
             return HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
         }
 
-        private List<YoutubeVideo> GetVideos(string html)
+        private List<YoutubeVideo> GetVideosByHtml(string html)
         {
-            var links = GetVideoLinks(html);
+            var links = GetVideoLinksFromHtml(html);
+            return GetVideos(links);
+        }
+
+        private List<YoutubeVideo> GetVideosByYoutubeAPI(string channelId)
+        {
+            var links = GetVideoLinksFromYoutubeAPI(channelId);
+            return GetVideos(links);
+        }
+
+        private List<YoutubeVideo> GetVideos(List<string> videosUrl)
+        {
             var videos = new List<YoutubeVideo>();
             var youtubeVideosService = new YoutubeVideosService();
-            foreach (var link in links)
+            foreach (var link in videosUrl)
             {
                 videos.Add(youtubeVideosService.GetVideoFromUrl(link));
             }
             return videos;
         }
 
-        private List<string> GetVideoLinks(string html)
+        private List<string> GetVideoLinksFromHtml(string html)
         {
             if (html == null)
                 return null;
@@ -89,6 +114,20 @@ namespace YoutubeAPI.Services
             } while (tempo != null);
 
             return links;
+        }
+
+        private List<string> GetVideoLinksFromYoutubeAPI(string channelId)
+        {
+            return _youtubeAPIService.GetUrlVideosFromPlaylist(channelId);
+        }
+
+        private string GetIdPlaylist(string url)
+        {
+            var world = "&list=";
+            var index = url.IndexOf(world);
+            if (index == -1)
+                throw new Exception();
+            return url.Substring(index + world.Length);
         }
     }
 }
