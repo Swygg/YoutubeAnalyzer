@@ -187,6 +187,15 @@ namespace DAL.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Url.
+        /// </summary>
+        internal static string Data_Url {
+            get {
+                return ResourceManager.GetString("Data_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Playlist.
         /// </summary>
         internal static string Playlist {

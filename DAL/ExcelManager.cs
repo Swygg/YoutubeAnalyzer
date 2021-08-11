@@ -117,7 +117,7 @@ namespace DAL
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.SubscriptionDate?.ToString(GetDateFormat())));
 
             //TRUE URL
-            cells.Add(new Cell(++rowIndex, 0, Resources.Strings.Data_SubscriptionDate, titleStyle));
+            cells.Add(new Cell(++rowIndex, 0, Resources.Strings.Data_Url, titleStyle));
             cells.Add(new Cell(rowIndex, 1, youtubeChannel.TrueUrl));
 
             //FACEBOOK LINK
@@ -169,7 +169,7 @@ namespace DAL
             cells.Add(new Cell(rowIndex, NAME, Resources.Strings.Data_Name, titleStyle));
             cells.Add(new Cell(rowIndex, NBVIDEOS, Resources.Strings.Data_NbVideos, titleStyle));
             cells.Add(new Cell(rowIndex, PLAYLISTINDEX, Resources.Strings.Data_PlaylistIndex, titleStyle));
-            cells.Add(new Cell(rowIndex, URL, Resources.Strings.Url, titleStyle));
+            cells.Add(new Cell(rowIndex, URL, Resources.Strings.Data_Url, titleStyle));
 
             int indexPlaylist = 1;
             foreach (var playlist in playlists)

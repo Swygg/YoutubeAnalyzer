@@ -159,6 +159,9 @@
   <data name="Data_TwitterLink" xml:space="preserve">
     <value>Twitter link</value>
   </data>
+  <data name="Data_Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
   <data name="Playlist" xml:space="preserve">
     <value>Playlist</value>
   </data>

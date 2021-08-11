@@ -126,7 +126,7 @@ namespace YoutubeAPI.Services
             var world = "&list=";
             var index = url.IndexOf(world);
             if (index == -1)
-                throw new Exception();
+                return url;
             return url.Substring(index + world.Length);
         }
     }

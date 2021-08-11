@@ -168,7 +168,7 @@ namespace YoutubeAPI.Services
             var indexStartHtml = "canonicalBaseUrl\":\"";
             var indexEndHtml = "\"}";
             var urlPart = HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
-            return urlPart == null ? null : $"https://www.youtube.com/user/{urlPart}";
+            return urlPart == null ? null : $"https://www.youtube.com{urlPart}";
         }
 
         private List<YoutubeVideo> GetVideos(string url)
@@ -185,6 +185,9 @@ namespace YoutubeAPI.Services
 
         private List<string> GetVideoLinks(string url)
         {
+            if (_youtubeAPIService != null)
+                return _youtubeAPIService.GetUrlVideosFromChannel(GetId(url));
+
             url = GetYoutubeVideoAccountUrl(url);
             if (url == null)
                 return null;
@@ -216,6 +219,8 @@ namespace YoutubeAPI.Services
 
             return links;
         }
+
+
 
         private string GetYoutubeVideoAccountUrl(string url)
         {
@@ -308,9 +313,20 @@ namespace YoutubeAPI.Services
         {
             var world = "channel/";
             var index = url.IndexOf(world);
-            if (index == -1)
-                throw new Exception();
-            return url.Substring(index + world.Length);
+            if (index > -1)
+                return url.Substring(index + world.Length);
+
+            string html;
+            try
+            {
+                html = HtmlHelper.GetHtmlFromUrl(url);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return HtmlHelper.GetInformations(html, "browse_id\",\"value\":\"", "\"");
         }
     }
 }
