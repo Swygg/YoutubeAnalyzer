@@ -36,28 +36,22 @@ namespace IHM
 
 
         #region PRIVATES METHODES
-        private void Analyze()
+        private List<YoutubeResponse> Analyze()
         {
             if (string.IsNullOrEmpty(tb_urls.Text))
             {
                 this.ShowError(Properties.Strings.Err_OneUrlMinimum);
-                return;
+                return null;
             }
             if (string.IsNullOrEmpty(tb_folderPath.Text))
             {
                 this.ShowError(Properties.Strings.Err_UserMustGiveOneFolderPath);
-                return;
+                return null;
             }
 
-
-            InformUserProcessIsStarting();
-
-            var startProcess = DateTime.Now;
             var youtubeResponses = new List<YoutubeResponse>();
             var links = GetLinks();
             var youtubeSearchService = new YoutubeSearchService(tb_YoutubeApiKey.Text);
-
-
 
             Parallel.ForEach(links, link =>
             {
@@ -68,35 +62,7 @@ namespace IHM
                 }
             });
 
-
-            //ORDER VIDEO BY NB VIEWS
-            foreach (var youtubeResponse in youtubeResponses)
-            {
-                if (youtubeResponse.Channel != null)
-                {
-                    youtubeResponse.Channel.Videos = SortVideos(youtubeResponse.Channel.Videos);
-                    foreach (var playlist in youtubeResponse.Channel.Playlists)
-                    {
-                        playlist.Videos = SortVideos(playlist.Videos);
-                    }
-                }
-                if (youtubeResponse.Playlist != null)
-                {
-                    youtubeResponse.Playlist.Videos = SortVideos(youtubeResponse.Playlist.Videos);
-                }
-            }
-
-            Options options = GetOptions();
-
-            DAL.ExcelManager.Save(tb_folderPath.Text, youtubeResponses, options);
-
-            InformUserProcessIsFinished();
-            var endProcess = DateTime.Now;
-            var time = endProcess - startProcess;
-            var successMessage = string.Format(Properties.Strings.SuccessMessage,
-                tb_folderPath.Text + Environment.NewLine,
-                GetDurationReadableFormat(time));
-            MessageBox.Show(successMessage, Properties.Strings.SuccessTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return youtubeResponses;
         }
 
         private List<YoutubeVideo> SortVideos(List<YoutubeVideo> videosUnsorted)
@@ -251,9 +217,46 @@ namespace IHM
 
 
         #region EVENTS
-        private void btn_Analyze_Click(object sender, EventArgs e)
+        private async void btn_Analyze_Click(object sender, EventArgs e)
         {
-            Analyze();
+            InformUserProcessIsStarting();
+            var startProcess = DateTime.Now;
+
+            Task<List<YoutubeResponse>> task = Task.Run(() =>
+            {
+                return Analyze();
+            });
+
+            var youtubeResponses = await task;
+
+            //ORDER VIDEO BY NB VIEWS
+            foreach (var youtubeResponse in youtubeResponses)
+            {
+                if (youtubeResponse.Channel != null)
+                {
+                    youtubeResponse.Channel.Videos = SortVideos(youtubeResponse.Channel.Videos);
+                    foreach (var playlist in youtubeResponse.Channel.Playlists)
+                    {
+                        playlist.Videos = SortVideos(playlist.Videos);
+                    }
+                }
+                if (youtubeResponse.Playlist != null)
+                {
+                    youtubeResponse.Playlist.Videos = SortVideos(youtubeResponse.Playlist.Videos);
+                }
+            }
+
+            Options options = GetOptions();
+
+            DAL.ExcelManager.Save(tb_folderPath.Text, youtubeResponses, options);
+            InformUserProcessIsFinished();
+
+            var endProcess = DateTime.Now;
+            var time = endProcess - startProcess;
+            var successMessage = string.Format(Properties.Strings.SuccessMessage,
+                tb_folderPath.Text + Environment.NewLine,
+                GetDurationReadableFormat(time));
+            MessageBox.Show(successMessage, Properties.Strings.SuccessTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void changePath_btn_Click(object sender, EventArgs e)
