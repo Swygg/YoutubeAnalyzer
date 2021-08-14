@@ -129,6 +129,9 @@
   <data name="IHM_Btn_Analyze" xml:space="preserve">
     <value>Analizar !</value>
   </data>
+  <data name="IHM_Btn_AnalyzeStop" xml:space="preserve">
+    <value>Anular</value>
+  </data>
   <data name="IHM_Btn_ChangePath" xml:space="preserve">
     <value>Cambiar carpeta de destino</value>
   </data>
@@ -182,5 +185,8 @@
   </data>
   <data name="SuccessTitle" xml:space="preserve">
     <value>Éxito</value>
+  </data>
+  <data name="UserAskForStop" xml:space="preserve">
+    <value>Solicitud de cancelación de usuario.</value>
   </data>
 </root>

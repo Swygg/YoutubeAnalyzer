@@ -129,6 +129,9 @@
   <data name="IHM_Btn_Analyze" xml:space="preserve">
     <value>Analyze !</value>
   </data>
+  <data name="IHM_Btn_AnalyzeStop" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="IHM_Btn_ChangePath" xml:space="preserve">
     <value>Change path</value>
   </data>
@@ -182,5 +185,8 @@
   </data>
   <data name="SuccessTitle" xml:space="preserve">
     <value>Success</value>
+  </data>
+  <data name="UserAskForStop" xml:space="preserve">
+    <value>Analyze canceled by user.</value>
   </data>
 </root>

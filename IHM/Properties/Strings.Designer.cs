@@ -97,6 +97,15 @@ namespace IHM.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cancel.
+        /// </summary>
+        internal static string IHM_Btn_AnalyzeStop {
+            get {
+                return ResourceManager.GetString("IHM_Btn_AnalyzeStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Change path.
         /// </summary>
         internal static string IHM_Btn_ChangePath {
@@ -255,6 +264,15 @@ namespace IHM.Properties {
         internal static string SuccessTitle {
             get {
                 return ResourceManager.GetString("SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Analyze canceled by user..
+        /// </summary>
+        internal static string UserAskForStop {
+            get {
+                return ResourceManager.GetString("UserAskForStop", resourceCulture);
             }
         }
     }

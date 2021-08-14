@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YoutubeAPI.Models;
@@ -12,7 +13,10 @@ namespace IHM
     public partial class MainForm : Form
     {
         private string _processState = Properties.Strings.ProcessState;
-
+        private bool _working = false;
+        private Task<List<YoutubeResponse>> _task;
+        CancellationTokenSource _tokenSource;
+        CancellationToken _token;
 
         #region CONSTRUCTOR
         public MainForm()
@@ -55,6 +59,8 @@ namespace IHM
 
             Parallel.ForEach(links, link =>
             {
+                if (_token.IsCancellationRequested)
+                    return;
                 var response = youtubeSearchService.GetAnswerFromLink(link);
                 if (response != null)
                 {
@@ -219,44 +225,74 @@ namespace IHM
         #region EVENTS
         private async void btn_Analyze_Click(object sender, EventArgs e)
         {
-            InformUserProcessIsStarting();
-            var startProcess = DateTime.Now;
-
-            Task<List<YoutubeResponse>> task = Task.Run(() =>
+            if (_working)
             {
-                return Analyze();
-            });
-
-            var youtubeResponses = await task;
-
-            //ORDER VIDEO BY NB VIEWS
-            foreach (var youtubeResponse in youtubeResponses)
+                btn_Analyze.Enabled = false;
+                _tokenSource.Cancel();
+                _tokenSource.Dispose();
+                _working = false;
+                btn_Analyze.Text = Properties.Strings.IHM_Btn_Analyze;
+            }
+            else
             {
-                if (youtubeResponse.Channel != null)
+                _working = true;
+                btn_Analyze.Text = Properties.Strings.IHM_Btn_AnalyzeStop;
+
+                InformUserProcessIsStarting();
+                var startProcess = DateTime.Now;
+
+                _tokenSource = new CancellationTokenSource();
+                _token = _tokenSource.Token;
+
+                _task = Task.Run(() =>
                 {
-                    youtubeResponse.Channel.Videos = SortVideos(youtubeResponse.Channel.Videos);
-                    foreach (var playlist in youtubeResponse.Channel.Playlists)
+                    Thread.Sleep(2000);
+                    return Analyze();
+                }, _token);
+
+                var youtubeResponses = await _task;
+
+                string message;
+                if (!_token.IsCancellationRequested)
+                {
+
+                    //ORDER VIDEO BY NB VIEWS
+                    foreach (var youtubeResponse in youtubeResponses)
                     {
-                        playlist.Videos = SortVideos(playlist.Videos);
+                        if (youtubeResponse.Channel != null)
+                        {
+                            youtubeResponse.Channel.Videos = SortVideos(youtubeResponse.Channel.Videos);
+                            foreach (var playlist in youtubeResponse.Channel.Playlists)
+                            {
+                                playlist.Videos = SortVideos(playlist.Videos);
+                            }
+                        }
+                        if (youtubeResponse.Playlist != null)
+                        {
+                            youtubeResponse.Playlist.Videos = SortVideos(youtubeResponse.Playlist.Videos);
+                        }
                     }
+
+                    Options options = GetOptions();
+
+                    DAL.ExcelManager.Save(tb_folderPath.Text, youtubeResponses, options);
+                    InformUserProcessIsFinished();
+
+                    var endProcess = DateTime.Now;
+                    var time = endProcess - startProcess;
+                    message = string.Format(Properties.Strings.SuccessMessage,
+                        tb_folderPath.Text + Environment.NewLine,
+                        GetDurationReadableFormat(time));
                 }
-                if (youtubeResponse.Playlist != null)
+                else
                 {
-                    youtubeResponse.Playlist.Videos = SortVideos(youtubeResponse.Playlist.Videos);
+                    message = Properties.Strings.UserAskForStop;
+                    btn_Analyze.Enabled = true;
                 }
+                MessageBox.Show(message, Properties.Strings.SuccessTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            Options options = GetOptions();
-
-            DAL.ExcelManager.Save(tb_folderPath.Text, youtubeResponses, options);
-            InformUserProcessIsFinished();
-
-            var endProcess = DateTime.Now;
-            var time = endProcess - startProcess;
-            var successMessage = string.Format(Properties.Strings.SuccessMessage,
-                tb_folderPath.Text + Environment.NewLine,
-                GetDurationReadableFormat(time));
-            MessageBox.Show(successMessage, Properties.Strings.SuccessTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _working = !_working;
         }
 
         private void changePath_btn_Click(object sender, EventArgs e)
