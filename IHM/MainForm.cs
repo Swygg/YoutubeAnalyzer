@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using YoutubeAPI.Models;
 using YoutubeAPI.Services;
@@ -58,15 +59,15 @@ namespace IHM
 
 
 
-
-            foreach (var link in links)
+            Parallel.ForEach(links, link =>
             {
                 var response = youtubeSearchService.GetAnswerFromLink(link);
                 if (response != null)
                 {
                     youtubeResponses.Add(response);
                 }
-            }
+            });
+
 
             //ORDER VIDEO BY NB VIEWS
             foreach (var youtubeResponse in youtubeResponses)
