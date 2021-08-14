@@ -246,7 +246,6 @@ namespace IHM
 
                 _task = Task.Run(() =>
                 {
-                    Thread.Sleep(2000);
                     return Analyze();
                 }, _token);
 
