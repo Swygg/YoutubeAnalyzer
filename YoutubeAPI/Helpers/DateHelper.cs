@@ -15,6 +15,8 @@ namespace YoutubeAPI.Helpers
         /// <returns></returns>
         public static DateTime? TranslateYoutubeDateInDateTime(string youtubeDate)
         {
+            if (youtubeDate == null)
+                return null;
             try
             {
                 var dateParts = youtubeDate.Split(' ');

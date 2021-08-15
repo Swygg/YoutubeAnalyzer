@@ -58,6 +58,8 @@ namespace YoutubeAPI.Services
             var indexStartHtml = "Person\"><link itemprop=\"url\" href=\"";
             var indexEndHtml = "\"";
             var maybeChannelUrl = HtmlHelper.GetInformations(html, indexStartHtml, indexEndHtml);
+            if (maybeChannelUrl == null)
+                return null;
             if (maybeChannelUrl.IndexOf("user") > -1)
                 return maybeChannelUrl;
             return null;

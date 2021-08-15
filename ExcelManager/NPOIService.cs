@@ -11,16 +11,17 @@ namespace ExcelServices
     public class NPOIService : IExcelService
     {
         private HSSFWorkbook _workbook;
+        private ICellStyle _cellStyle;
         public void Create(string path, Workbook workbook)
         {
-
+            _cellStyle = null;
             _workbook = new HSSFWorkbook();
             foreach (var worksheet in workbook.Worksheets)
             {
                 var ws = _workbook.CreateSheet(worksheet.Name);
                 int actualRowIndex = -1;
                 IRow row = null;
-                foreach (var cell in worksheet.Cells.OrderBy(c=> c.X))
+                foreach (var cell in worksheet.Cells.OrderBy(c => c.X))
                 {
                     if (cell.X > actualRowIndex)
                     {
@@ -32,7 +33,7 @@ namespace ExcelServices
                 SetColumnsSize(ws, worksheet.ColumnsSize);
             }
 
-           
+
 
             using (var stream = new FileStream(path + workbook.Name + ".xls", FileMode.Create, FileAccess.Write))
             {
@@ -46,38 +47,39 @@ namespace ExcelServices
             ICell npoiCell = currentRow.CreateCell(cell.Y);
             npoiCell.SetCellValue(cell.Value);
 
-            if(cell.CellStyle != null)
+            if (cell.CellStyle != null)
             {
                 IFont font = _workbook.CreateFont();
                 font.IsBold = cell.CellStyle.IsBold;
                 font.IsItalic = cell.CellStyle.IsItalic;
-                ICellStyle cellStyle = _workbook.CreateCellStyle();
-                cellStyle.SetFont(font);
+                if (_cellStyle == null)
+                    _cellStyle = _workbook.CreateCellStyle();
+                _cellStyle.SetFont(font);
                 switch (cell.CellStyle.HorizontalAlignment)
                 {
                     case EHorizontalAlignment.General:
-                        cellStyle.Alignment = HorizontalAlignment.General;
+                        _cellStyle.Alignment = HorizontalAlignment.General;
                         break;
                     case EHorizontalAlignment.Left:
-                        cellStyle.Alignment = HorizontalAlignment.Left;
+                        _cellStyle.Alignment = HorizontalAlignment.Left;
                         break;
                     case EHorizontalAlignment.Center:
-                        cellStyle.Alignment = HorizontalAlignment.Center;
+                        _cellStyle.Alignment = HorizontalAlignment.Center;
                         break;
                     case EHorizontalAlignment.Right:
-                        cellStyle.Alignment = HorizontalAlignment.Right;
+                        _cellStyle.Alignment = HorizontalAlignment.Right;
                         break;
                     case EHorizontalAlignment.Fill:
-                        cellStyle.Alignment = HorizontalAlignment.Fill;
+                        _cellStyle.Alignment = HorizontalAlignment.Fill;
                         break;
                     case EHorizontalAlignment.Justify:
-                        cellStyle.Alignment = HorizontalAlignment.Justify;
+                        _cellStyle.Alignment = HorizontalAlignment.Justify;
                         break;
                     case EHorizontalAlignment.CenterSelection:
-                        cellStyle.Alignment = HorizontalAlignment.CenterSelection;
+                        _cellStyle.Alignment = HorizontalAlignment.CenterSelection;
                         break;
                     case EHorizontalAlignment.Distributed:
-                        cellStyle.Alignment = HorizontalAlignment.Distributed;
+                        _cellStyle.Alignment = HorizontalAlignment.Distributed;
                         break;
                     default:
                         break;
@@ -85,27 +87,27 @@ namespace ExcelServices
                 switch (cell.CellStyle.VerticalAlignment)
                 {
                     case EVerticalAlignment.None:
-                        cellStyle.VerticalAlignment = VerticalAlignment.None;
+                        _cellStyle.VerticalAlignment = VerticalAlignment.None;
                         break;
                     case EVerticalAlignment.Top:
-                        cellStyle.VerticalAlignment = VerticalAlignment.Top;
+                        _cellStyle.VerticalAlignment = VerticalAlignment.Top;
                         break;
                     case EVerticalAlignment.Center:
-                        cellStyle.VerticalAlignment = VerticalAlignment.Center;
+                        _cellStyle.VerticalAlignment = VerticalAlignment.Center;
                         break;
                     case EVerticalAlignment.Bottom:
-                        cellStyle.VerticalAlignment = VerticalAlignment.Bottom;
+                        _cellStyle.VerticalAlignment = VerticalAlignment.Bottom;
                         break;
                     case EVerticalAlignment.Justify:
-                        cellStyle.VerticalAlignment = VerticalAlignment.Justify;
+                        _cellStyle.VerticalAlignment = VerticalAlignment.Justify;
                         break;
                     case EVerticalAlignment.Distributed:
-                        cellStyle.VerticalAlignment = VerticalAlignment.Distributed;
+                        _cellStyle.VerticalAlignment = VerticalAlignment.Distributed;
                         break;
                     default:
                         break;
                 }
-                npoiCell.CellStyle = cellStyle;
+                npoiCell.CellStyle = _cellStyle;
             }
         }
 

@@ -77,7 +77,6 @@ namespace IHM
             this.tb_urls.Name = "tb_urls";
             this.tb_urls.Size = new System.Drawing.Size(487, 100);
             this.tb_urls.TabIndex = 0;
-            this.tb_urls.Text = "https://www.youtube.com/user/LesTutosdeHuito";
             // 
             // lbl_MainYoutubeUrlPage
             // 

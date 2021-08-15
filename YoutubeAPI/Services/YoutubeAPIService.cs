@@ -32,9 +32,12 @@ namespace YoutubeAPI.Services
             var playlistListResponse = playlistListRequest.Execute();
 
             var playlists = new List<string>();
+            string tempo;
             foreach (var item in playlistListResponse.Items)
             {
-                playlists.Add(GetFirstVideoUrlFromPlaylistId(item.Id) + "&list=" + item.Id);
+                tempo = GetFirstVideoUrlFromPlaylistId(item.Id);
+                if (tempo != null)
+                    playlists.Add(tempo + "&list=" + item.Id);
             }
             return playlists;
         }
@@ -53,10 +56,12 @@ namespace YoutubeAPI.Services
             var playListItemsListRequest = _youtubeService.PlaylistItems.List("snippet");
             playListItemsListRequest.PlaylistId = playlistId;
             playListItemsListRequest.MaxResults = 1;
-          
+
             var playListItemsListResults = playListItemsListRequest.Execute();
 
             var result = new List<string>();
+            if (playListItemsListResults.Items.Count == 0)
+                return null;
             return _youtubeBaseUrl + playListItemsListResults.Items[0].Snippet.ResourceId.VideoId;
         }
 
@@ -93,7 +98,7 @@ namespace YoutubeAPI.Services
             var result = new List<string>();
             foreach (var item in searchListResult.Items)
             {
-                result.Add(_youtubeBaseUrl+item.Id.VideoId);
+                result.Add(_youtubeBaseUrl + item.Id.VideoId);
             }
             if (!string.IsNullOrEmpty(searchListResult.NextPageToken))
             {
